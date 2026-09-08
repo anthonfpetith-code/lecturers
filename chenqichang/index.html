@@ -25,6 +25,9 @@
     background:var(--bg);color:var(--ink);line-height:1.8;
     overflow-x:hidden;
   }
+  /* 全页噪点（胶片质感） */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
   ::selection{background:rgba(212,175,55,.32)}
   .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
 
@@ -94,6 +97,15 @@
   .sb-num i{font-style:normal;font-size:.55em;font-weight:400;margin-left:2px;letter-spacing:.06em}
   .sb-label{font-size:12px;color:var(--ink-faint);letter-spacing:.04em;white-space:nowrap}
   .sb-sep{width:1px;height:26px;background:var(--line);flex:none;margin:0 6px}
+
+  /* ===== 跑马灯 ===== */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;padding:15px 0;white-space:nowrap;margin-top:clamp(26px,4vw,38px)}
+  .marquee-track{display:inline-flex;gap:56px;animation:mq 30s linear infinite;will-change:transform}
+  .marquee span{font-size:12.5px;letter-spacing:.16em;color:var(--ink-faint)}
+  .marquee b{color:var(--gold);font-weight:400}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
   /* ===== 通用板块 ===== */
   section{padding:clamp(44px,6.5vw,68px) 0 0}
@@ -226,6 +238,55 @@
   }
   .case .gains-line b{color:var(--gold);font-weight:600;margin-right:10px}
 
+  /* ===== 代表作品：横向海报轮播 ===== */
+  .works{overflow:hidden}
+  .car-wrap{position:relative}
+  .car{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:4px 26px 22px;scrollbar-width:none;cursor:grab;-webkit-overflow-scrolling:touch}
+  .car::-webkit-scrollbar{display:none}
+  .car.grabbing{cursor:grabbing;scroll-snap-type:none}
+  .wcard{flex:0 0 min(290px,76vw);scroll-snap-align:start}
+  .wcard .ph{position:relative;overflow:hidden;aspect-ratio:2/3;background:var(--bg-soft)}
+  .wcard .ph img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.22,1,.36,1)}
+  .wcard:hover .ph img{transform:scale(1.06)}
+  .wcard .ph::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.08);pointer-events:none}
+  .wcard .rank{
+    position:absolute;top:14px;left:14px;font-size:11px;letter-spacing:.14em;
+    background:rgba(15,14,12,.72);backdrop-filter:blur(8px);border:1px solid var(--line);
+    color:var(--gold);padding:6px 12px;border-radius:100px;z-index:2;
+  }
+  .wcard .meta{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:16px}
+  .wcard .t{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:.02em;line-height:1.5}
+  .wcard .g{font-size:11.5px;color:var(--gold);white-space:nowrap}
+  .wcard .tag{font-size:11px;color:var(--ink-faint);margin-top:6px;letter-spacing:.06em}
+  /* 排版海报位（无海报作品：纯排版设计，不编造画面） */
+  .wcard .ph.typo{display:flex;flex-direction:column;justify-content:space-between;
+    padding:22px;background:linear-gradient(165deg,#1A1710 0%,#0F0E0C 70%);border:1px solid var(--line)}
+  .typo .big{position:absolute;right:-8px;bottom:-30px;font-family:var(--serif);font-weight:700;
+    font-size:150px;color:rgba(212,175,55,.07);line-height:1;pointer-events:none;user-select:none}
+  .typo .type-tag{font-size:10.5px;letter-spacing:.3em;color:var(--ink-faint);border:1px solid var(--line);
+    padding:5px 11px;align-self:flex-start}
+  .typo .vt{writing-mode:vertical-rl;font-family:var(--serif);font-weight:700;
+    font-size:clamp(22px,4.6vw,28px);letter-spacing:.24em;color:var(--ink);align-self:center;margin:18px 0}
+  .typo .en-t{font-family:var(--serif);font-weight:700;font-size:19px;line-height:1.6;
+    letter-spacing:.04em;color:var(--ink);align-self:center;text-align:center;margin:18px 0;
+    max-width:92%;overflow-wrap:break-word}
+  .typo .base{font-size:10px;letter-spacing:.26em;color:var(--ink-faint);text-align:center}
+  .car-ui{display:flex;align-items:center;gap:20px;margin-top:4px;padding:0 26px}
+  .car-btns{display:flex;gap:10px}
+  .car-btn{width:46px;height:46px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    transition:border-color .3s,color .3s,transform .3s}
+  .car-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+  .car-btn svg{width:17px;height:17px}
+  .car-progress{flex:1;height:1px;background:var(--line);position:relative}
+  .car-progress i{position:absolute;left:0;top:-1px;height:3px;width:20%;background:var(--gold);border-radius:2px;transition:width .2s}
+  .car-hint{font-size:10.5px;letter-spacing:.2em;color:var(--ink-faint)}
+  @media (max-width:880px){
+    .car-ui{padding:0 18px}
+    .car{padding-left:18px;padding-right:18px}
+  }
+
   /* ===== 页脚 ===== */
   footer{margin-top:clamp(48px,7vw,72px);padding:0 0 44px;text-align:center}
   .foot-line{
@@ -311,6 +372,13 @@
   </div>
 </header>
 
+<!-- ================= 跑马灯 ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq">
+    <span>Seedance 2.5 <b>内测工作流先行者</b></span><span>Happyhorse <b>内测工作流开发</b></span><span>多部作品 <b>千万级播放</b></span><span>红果剧场 <b>/</b> TikTok</span><span>温州广电 <b>三期百人培训</b></span><span>武汉文理学院 <b>二期落地交付</b></span><span>自研 <b>漫剧前置资产 Skills</b></span>
+  </div>
+</div>
+
 <!-- ================= 01 个人简介 ================= -->
 <section>
   <div class="wrap">
@@ -381,11 +449,114 @@
   </div>
 </section>
 
-<!-- ================= 03 专业领域 ================= -->
+<!-- ================= 03 代表作品（横向海报轮播） ================= -->
+<section class="works">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="sec-no"><b>叁</b> / 03 · SELECTED WORKS</div>
+      <h2 class="sec-title">代表<em>作品</em></h2>
+      <div class="sec-sub">红果短剧 & 海外平台 · AIGC 全流程制作</div>
+    </div>
+  </div>
+  <div class="car-wrap">
+    <div class="car" id="car">
+      <article class="wcard rise">
+        <div class="ph"><span class="rank">NO.01</span><img src="poster-jiange.jpg" alt="捡个家人是大佬 海报"></div>
+        <div class="meta"><span class="t">《捡个家人是大佬》</span><span class="g">古装家庭</span></div>
+        <p class="tag">红果短剧 · AIGC 全流程</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph"><span class="rank">NO.02</span><img src="poster-shengong.jpg" alt="深宫劫之凰鸣 海报"></div>
+        <div class="meta"><span class="t">《深宫劫之凰鸣》</span><span class="g">古装宫廷</span></div>
+        <p class="tag">红果短剧 · AIGC 全流程</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph"><span class="rank">NO.03</span><img src="poster-emperor.jpg" alt="现代理工男穿越大晟当皇帝 海报"></div>
+        <div class="meta"><span class="t">《现代理工男穿越大晟当皇帝》</span><span class="g">历史穿越</span></div>
+        <p class="tag">红果短剧 · AIGC 全流程</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph"><span class="rank">NO.04</span><img src="poster-xiaomengsun.jpg" alt="小萌孙驾到 海报"></div>
+        <div class="meta"><span class="t">《小萌孙驾到》</span><span class="g">家庭萌宝</span></div>
+        <p class="tag">强势奶奶宠上天 · AIGC 全流程</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">聊</span>
+          <span class="type-tag">志怪爱情</span>
+          <span class="vt">聊斋志异之花姑子</span>
+          <span class="base">AIGC PRODUCTION</span>
+        </div>
+        <div class="meta"><span class="t">《聊斋志异之花姑子》</span><span class="g">志怪爱情</span></div>
+        <p class="tag">聊斋 IP 改编</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">W</span>
+          <span class="type-tag">海外英语剧</span>
+          <span class="en-t">War of the Golden Apple</span>
+          <span class="base">OVERSEAS · AIGC</span>
+        </div>
+        <div class="meta"><span class="t">War of the Golden Apple</span><span class="g">海外英语剧</span></div>
+        <p class="tag">海外短剧平台</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">M</span>
+          <span class="type-tag">海外英语剧</span>
+          <span class="en-t">My Husband, The Ruthless King</span>
+          <span class="base">OVERSEAS · AIGC</span>
+        </div>
+        <div class="meta"><span class="t">My Husband, The Ruthless King</span><span class="g">海外英语剧</span></div>
+        <p class="tag">海外短剧平台</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">D</span>
+          <span class="type-tag">海外英语剧</span>
+          <span class="en-t">Dead City Protocol: 72 Hours to Save Her</span>
+          <span class="base">OVERSEAS · AIGC</span>
+        </div>
+        <div class="meta"><span class="t">Dead City Protocol</span><span class="g">海外英语剧</span></div>
+        <p class="tag">海外短剧平台</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">C</span>
+          <span class="type-tag">海外英语剧</span>
+          <span class="en-t">Crown of Thorns and Roses</span>
+          <span class="base">OVERSEAS · AIGC</span>
+        </div>
+        <div class="meta"><span class="t">Crown of Thorns and Roses</span><span class="g">海外英语剧</span></div>
+        <p class="tag">海外短剧平台</p>
+      </article>
+      <article class="wcard rise">
+        <div class="ph typo">
+          <span class="big">H</span>
+          <span class="type-tag">海外英语剧</span>
+          <span class="en-t">Her Invisible Crown</span>
+          <span class="base">OVERSEAS · AIGC</span>
+        </div>
+        <div class="meta"><span class="t">Her Invisible Crown</span><span class="g">海外英语剧</span></div>
+        <p class="tag">海外短剧平台</p>
+      </article>
+    </div>
+    <div class="car-ui">
+      <div class="car-btns">
+        <button class="car-btn" id="prev" aria-label="上一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="car-btn" id="next" aria-label="下一张"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+      <div class="car-progress"><i id="prog"></i></div>
+      <span class="car-hint">DRAG / SCROLL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 专业领域 ================= -->
 <section>
   <div class="wrap">
     <div class="sec-head rise">
-      <div class="sec-no"><b>叁</b> / 03 · PROFESSIONAL FIELD</div>
+      <div class="sec-no"><b>肆</b> / 04 · PROFESSIONAL FIELD</div>
       <h2 class="sec-title">专业<em>领域</em></h2>
       <div class="sec-sub">多年深耕形成的方法论与实践经验</div>
     </div>
@@ -414,11 +585,11 @@
   </div>
 </section>
 
-<!-- ================= 04 教学特色 ================= -->
+<!-- ================= 05 教学特色 ================= -->
 <section>
   <div class="wrap">
     <div class="sec-head rise">
-      <div class="sec-no"><b>肆</b> / 04 · TEACHING STYLE</div>
+      <div class="sec-no"><b>伍</b> / 05 · TEACHING STYLE</div>
       <h2 class="sec-title">教学<em>特色</em></h2>
     </div>
     <div class="teach rise d1">
@@ -448,11 +619,11 @@
   </div>
 </section>
 
-<!-- ================= 05 服务案例 ================= -->
+<!-- ================= 06 服务案例 ================= -->
 <section>
   <div class="wrap">
     <div class="sec-head rise">
-      <div class="sec-no"><b>伍</b> / 05 · SERVICE CASES</div>
+      <div class="sec-no"><b>陆</b> / 06 · SERVICE CASES</div>
       <h2 class="sec-title">服务<em>案例</em></h2>
     </div>
     <div class="cases">
@@ -504,6 +675,29 @@
     });
   },{threshold:.12});
   document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+
+  /* 跑马灯复制一份实现无缝循环 */
+  const mq=document.getElementById('mq');mq.innerHTML+=mq.innerHTML;
+
+  /* 作品轮播：按钮 + 进度条 + 拖拽 + 滚轮横滑 */
+  const car=document.getElementById('car'),prog=document.getElementById('prog');
+  const step=()=>car.querySelector('.wcard').offsetWidth+18;
+  document.getElementById('next').onclick=()=>car.scrollBy({left:step(),behavior:'smooth'});
+  document.getElementById('prev').onclick=()=>car.scrollBy({left:-step(),behavior:'smooth'});
+  car.addEventListener('scroll',()=>{
+    const max=car.scrollWidth-car.clientWidth;
+    prog.style.width=(max>0?20+80*car.scrollLeft/max:100)+'%';
+  },{passive:true});
+  let down=false,sx=0,sl=0;
+  car.addEventListener('pointerdown',e=>{down=true;sx=e.clientX;sl=car.scrollLeft;car.classList.add('grabbing');car.setPointerCapture(e.pointerId)});
+  car.addEventListener('pointermove',e=>{if(down)car.scrollLeft=sl-(e.clientX-sx)});
+  ['pointerup','pointercancel'].forEach(ev=>car.addEventListener(ev,()=>{down=false;car.classList.remove('grabbing')}));
+  car.addEventListener('wheel',e=>{
+    if(Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;
+    const max=car.scrollWidth-car.clientWidth,edge=4;
+    const canFwd=car.scrollLeft<max-edge,canBack=car.scrollLeft>edge;
+    if((e.deltaY>0&&canFwd)||(e.deltaY<0&&canBack)){e.preventDefault();car.scrollLeft+=e.deltaY}
+  },{passive:false});
 
   const numEl = document.querySelector('[data-count="2000"]');
   if(numEl && !matchMedia('(prefers-reduced-motion: reduce)').matches){
