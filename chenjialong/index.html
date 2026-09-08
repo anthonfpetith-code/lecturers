@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>陈家龙 · AIGC视频导师</title>
+<meta name="description" content="陈家龙（Rowan），AIGC视频导师。红果短剧与海外平台多部千万级爆款制作负责人，作品累计播放超1亿，单部最佳8000万+；Seedance 3 全球内测创作者，温州广电AIGC培训战略合作导师。">
+<style>
+  :root{
+    --bg:#130B0E;
+    --bg-soft:#1B1014;
+    --ink:#EEE5E7;
+    --ink-dim:#A6959B;
+    --ink-faint:#665259;
+    --wine:#B0465C;
+    --wine-bright:#D46A7E;
+    --wine-soft:rgba(176,70,92,.13);
+    --line:#2B1B20;
+    --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+    --sans:"Noto Sans SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+  ::selection{background:rgba(176,70,92,.35)}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
+  .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(44rem 28rem at 82% -6%,rgba(176,70,92,.07),transparent 62%),
+      radial-gradient(36rem 24rem at -8% 34%,rgba(176,70,92,.035),transparent 60%)}
+
+  /* ================= Hero：分屏式（左信息流 + 右大图带色衬） ================= */
+  header{padding:clamp(40px,6vw,72px) 0 0}
+  .hero{display:grid;grid-template-columns:1fr 400px;gap:clamp(32px,5vw,60px);align-items:center}
+  .tag{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12px;letter-spacing:.34em;color:var(--wine-bright);
+    padding:8px 4px 8px 0;margin-bottom:24px;
+  }
+  .tag::before{content:"";width:34px;height:1px;background:var(--wine);opacity:.8}
+  .name-row{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+  h1{font-family:var(--serif);font-weight:700;font-size:clamp(44px,7vw,64px);letter-spacing:.09em;line-height:1.12}
+  .en-name{font-family:var(--serif);font-size:clamp(16px,2.4vw,21px);letter-spacing:.5em;color:var(--wine);font-weight:400}
+  .roles{margin-top:16px;font-size:clamp(14px,2.3vw,16.5px);color:var(--ink-dim);letter-spacing:.15em}
+  .roles b{color:var(--ink);font-weight:600}
+  .slogan{
+    margin-top:24px;padding:16px 20px;position:relative;
+    border-left:2px solid var(--wine);
+    background:linear-gradient(90deg,var(--wine-soft),transparent 70%);
+  }
+  .slogan p{font-family:var(--serif);font-size:clamp(16px,2.6vw,19px);letter-spacing:.08em;color:var(--ink)}
+  .slogan p b{color:var(--wine-bright);font-weight:700}
+  .hero-sub{margin-top:18px;font-size:14px;color:var(--ink-dim);line-height:2;max-width:560px}
+
+  /* 照片：酒红色衬偏移 */
+  .photo-wrap{position:relative;justify-self:center}
+  .photo-pad{
+    position:absolute;inset:0;transform:translate(16px,16px);
+    background:linear-gradient(135deg,var(--wine) 0%,rgba(176,70,92,.35) 100%);
+    opacity:.5;
+  }
+  .photo{display:block;width:400px;max-width:100%;aspect-ratio:4/5;object-fit:cover;
+    filter:saturate(.95);position:relative;
+    box-shadow:0 26px 64px rgba(0,0,0,.55)}
+  .photo-tag{
+    position:absolute;left:0;bottom:-14px;z-index:2;
+    font-size:11px;letter-spacing:.3em;color:var(--wine-bright);
+    background:var(--bg);padding:6px 14px;border:1px solid var(--line);
+  }
+
+  /* ================= 数据：竖排四列 ================= */
+  .stats{
+    margin-top:clamp(28px,4.5vw,44px);
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .stat{padding:20px 18px;position:relative}
+  .stat + .stat{border-left:1px solid var(--line)}
+  .stat::after{content:"";position:absolute;top:0;left:0;width:22px;height:2px;background:var(--wine)}
+  .stat .n{
+    font-family:var(--serif);font-weight:700;
+    font-size:clamp(22px,3.4vw,31px);color:var(--wine-bright);
+    letter-spacing:.02em;font-variant-numeric:tabular-nums;white-space:nowrap;line-height:1.3;
+  }
+  .stat .n i{font-style:normal;font-size:.52em;font-weight:400;color:var(--ink-dim);margin-left:3px;letter-spacing:.06em}
+  .stat .l{margin-top:6px;font-size:12.5px;color:var(--ink-faint);letter-spacing:.1em}
+
+  /* ================= 通用标题 ================= */
+  section{padding:clamp(52px,7.5vw,88px) 0 0}
+  .sec-head{margin-bottom:clamp(26px,4vw,38px)}
+  .sec-top{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+  .sec-top .no{font-family:var(--serif);font-size:13px;color:var(--wine-bright);letter-spacing:.34em;font-weight:700}
+  .sec-top .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--wine),transparent)}
+  .sec-title{font-family:var(--serif);font-size:clamp(26px,4.4vw,36px);font-weight:700;letter-spacing:.12em}
+  .sec-title em{font-style:normal;color:var(--wine-bright)}
+  .sec-sub{margin-top:8px;font-size:13.5px;color:var(--ink-faint);letter-spacing:.14em}
+
+  /* ================= 代表作品：海报位网格 ================= */
+  .works{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .work{
+    position:relative;padding:22px 20px 18px;min-height:170px;
+    background:var(--bg-soft);border:1px solid var(--line);
+    display:flex;flex-direction:column;
+    transition:border-color .4s ease,transform .4s ease;
+  }
+  .work:hover{border-color:rgba(212,106,126,.5);transform:translateY(-4px)}
+  .work .no{
+    position:absolute;top:14px;right:16px;
+    font-family:var(--serif);font-size:13px;color:var(--ink-faint);letter-spacing:.2em;
+  }
+  .work .genre{font-size:11.5px;color:var(--wine-bright);letter-spacing:.22em;margin-bottom:10px}
+  .work h3{
+    font-family:var(--serif);font-size:clamp(17px,2.4vw,19.5px);font-weight:700;
+    letter-spacing:.03em;line-height:1.55;
+  }
+  .work h3 .x{display:inline-block;font-size:.55em;color:var(--ink-faint);margin:0 6px;vertical-align:middle}
+  .work .plat{
+    margin-top:auto;padding-top:14px;
+    font-size:12px;color:var(--ink-dim);letter-spacing:.1em;
+    display:flex;align-items:center;gap:8px;
+  }
+  .work .plat::before{content:"";width:16px;height:1px;background:var(--wine);opacity:.7}
+  .work .coop{
+    position:absolute;top:14px;left:20px;
+    font-size:10.5px;color:var(--ink);letter-spacing:.14em;
+    padding:3px 9px;border:1px solid rgba(212,106,126,.55);background:var(--wine-soft);
+    color:var(--wine-bright);
+  }
+
+  /* ================= 资历时间线 ================= */
+  .timeline{position:relative;padding-left:clamp(84px,12vw,130px)}
+  .timeline::before{
+    content:"";position:absolute;left:clamp(52px,8vw,84px);top:8px;bottom:8px;width:1px;
+    background:linear-gradient(180deg,var(--wine) 0%,var(--line) 100%);
+  }
+  .tl-item{position:relative;padding:0 0 clamp(28px,4vw,40px)}
+  .tl-item:last-child{padding-bottom:0}
+  .tl-item::before{
+    content:"";position:absolute;
+    left:calc(clamp(52px,8vw,84px) - clamp(84px,12vw,130px) - 4.5px);top:10px;
+    width:9px;height:9px;background:var(--bg);border:2px solid var(--wine);
+  }
+  .tl-year{
+    position:absolute;left:calc(clamp(52px,8vw,84px) - clamp(84px,12vw,130px));
+    transform:translateX(-100%);padding-right:14px;top:2px;
+    font-family:var(--serif);font-size:clamp(17px,2.6vw,21px);font-weight:700;
+    color:var(--wine-bright);letter-spacing:.04em;white-space:nowrap;
+  }
+  .tl-body h3{font-family:var(--serif);font-size:clamp(17.5px,2.8vw,21px);font-weight:700;letter-spacing:.05em}
+  .tl-body .cat{font-size:11px;color:var(--wine-bright);letter-spacing:.24em;margin:2px 0 8px}
+  .tl-body p{font-size:13.5px;color:var(--ink-dim);line-height:1.95;max-width:680px}
+  .tl-body p b{color:var(--ink);font-weight:600}
+
+  /* ================= 教学理念 ================= */
+  .teach-lead{
+    font-family:var(--serif);font-size:clamp(21px,3.6vw,29px);font-weight:700;
+    letter-spacing:.1em;color:var(--ink);line-height:1.7;
+  }
+  .teach-lead b{color:var(--wine-bright)}
+  .flow{
+    margin-top:clamp(24px,3.5vw,34px);
+    display:grid;grid-template-columns:repeat(5,1fr);gap:10px;
+  }
+  .flow-step{
+    padding:16px 14px;background:var(--bg-soft);border:1px solid var(--line);
+    border-top:2px solid var(--wine);position:relative;
+    transition:border-color .4s ease;
+  }
+  .flow-step:hover{border-color:rgba(212,106,126,.5)}
+  .flow-step .fn{font-family:var(--serif);font-size:12px;color:var(--wine-bright);letter-spacing:.18em;font-weight:700}
+  .flow-step b{display:block;font-size:14.5px;letter-spacing:.04em;margin:8px 0 6px}
+  .flow-step span{font-size:11.5px;color:var(--ink-faint);line-height:1.7;display:block}
+  .ideas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  .idea{
+    padding:22px 20px;border:1px solid var(--line);background:rgba(176,70,92,.05);
+    position:relative;
+  }
+  .idea::before{content:"";position:absolute;top:-1px;left:-1px;width:12px;height:12px;
+    border-top:2px solid var(--wine);border-left:2px solid var(--wine)}
+  .idea .m{font-size:11px;color:var(--wine-bright);letter-spacing:.3em;margin-bottom:12px}
+  .idea b{display:block;font-family:var(--serif);font-size:17px;font-weight:700;letter-spacing:.06em;margin-bottom:8px}
+  .idea span{font-size:13px;color:var(--ink-dim);line-height:1.9}
+
+  /* ================= 页脚 ================= */
+  footer{margin-top:clamp(56px,8vw,88px);padding:0 0 44px;text-align:center}
+  .foot-line{width:100%;height:1px;margin-bottom:32px;
+    background:linear-gradient(90deg,transparent,var(--line) 30%,var(--line) 70%,transparent)}
+  .foot-en{font-size:11px;letter-spacing:.46em;color:var(--ink-faint)}
+  .foot-cn{margin-top:14px;font-family:var(--serif);font-size:clamp(15px,2.5vw,18px);
+    letter-spacing:.24em;color:var(--ink-dim)}
+  .foot-cn b{color:var(--wine-bright);font-weight:700}
+
+  /* ================= 动效 ================= */
+  .rise{opacity:0;transform:translateY(26px);
+    transition:opacity .9s cubic-bezier(.22,.61,.36,1),transform .9s cubic-bezier(.22,.61,.36,1)}
+  .rise.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+  @media (prefers-reduced-motion:reduce){.rise{opacity:1;transform:none;transition:none}}
+
+  /* ================= 响应式 ================= */
+  @media (max-width:880px){
+    .hero{grid-template-columns:1fr;text-align:center}
+    .tag{justify-content:center}.tag::before{display:none}
+    .name-row{justify-content:center}
+    .slogan{text-align:left}
+    .photo-wrap{order:-1;margin-bottom:6px}
+    .photo{width:min(340px,86vw)}
+    .stats{grid-template-columns:1fr 1fr}
+    .stat:nth-child(3){border-left:none}
+    .stat:nth-child(n+3){border-top:1px solid var(--line)}
+    .works{grid-template-columns:1fr 1fr}
+    .flow{grid-template-columns:1fr 1fr}
+    .ideas{grid-template-columns:1fr}
+    .timeline{padding-left:64px}
+    .timeline::before{left:40px}
+    .tl-item::before{left:calc(40px - 64px - 4.5px)}
+    .tl-year{left:calc(40px - 64px);font-size:15px}
+  }
+  @media (max-width:560px){
+    .works{grid-template-columns:1fr}
+    .flow{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+
+<!-- ================= Hero ================= -->
+<header>
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="tag rise">AIGC VIDEO MENTOR · 师资介绍</div>
+        <div class="name-row rise d1">
+          <h1>陈家龙</h1>
+          <span class="en-name">ROWAN</span>
+        </div>
+        <div class="roles rise d2"><b>AIGC 视频导师</b> · 红果短剧与海外平台千万级爆款制作负责人</div>
+        <div class="slogan rise d3">
+          <p>“把想象力，<b>做成千万级播放</b>。”</p>
+        </div>
+        <p class="hero-sub rise d3">
+          红果短剧与海外平台多部千万级爆款背后的人。温州广电 AIGC 培训合作导师，Seedance 3 模型全球内测创作者。
+        </p>
+      </div>
+      <div class="photo-wrap rise d2">
+        <div class="photo-pad"></div>
+        <img class="photo" src="photo.jpg" alt="陈家龙">
+        <span class="photo-tag">ROWAN · WENZHOU</span>
+      </div>
+    </div>
+
+    <!-- 数据 -->
+    <div class="stats rise d1">
+      <div class="stat">
+        <div class="n">8000<i>万+</i></div>
+        <div class="l">单部作品最佳播放</div>
+      </div>
+      <div class="stat">
+        <div class="n">1<i>亿+</i></div>
+        <div class="l">作品累计播放量</div>
+      </div>
+      <div class="stat">
+        <div class="n">1000<i>+</i></div>
+        <div class="l">AIGC 培训学员人次</div>
+      </div>
+      <div class="stat">
+        <div class="n">6<i>部</i></div>
+        <div class="l">千万级播放爆款短剧</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= 01 代表作品 ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="sec-top"><span class="no">01 / SELECTED WORKS</span><span class="rule"></span></div>
+      <h2 class="sec-title">代表<em>作品</em></h2>
+      <div class="sec-sub">红果短剧 & 海外平台 · 多部千万级播放</div>
+    </div>
+    <div class="works">
+      <div class="work rise d1">
+        <span class="no">NO.01</span>
+        <div class="genre">古装家庭</div>
+        <h3>捡个家人是大佬</h3>
+        <div class="plat">红果短剧 · AIGC 全流程</div>
+      </div>
+      <div class="work rise d1">
+        <span class="no">NO.02</span>
+        <span class="coop">文旅合作</span>
+        <div class="genre">文旅宣传片</div>
+        <h3>谪仙传<span class="x">·</span>李白</h3>
+        <div class="plat">马鞍山文旅 · 合作作品</div>
+      </div>
+      <div class="work rise d2">
+        <span class="no">NO.03</span>
+        <div class="genre">古装宫廷</div>
+        <h3>深宫劫之凰鸣</h3>
+        <div class="plat">红果短剧 · AIGC 全流程</div>
+      </div>
+      <div class="work rise d2">
+        <span class="no">NO.04</span>
+        <div class="genre">海外英语剧</div>
+        <h3>72-Hour Contract Wife</h3>
+        <div class="plat">海外短剧平台 · AIGC 全流程</div>
+      </div>
+      <div class="work rise d3">
+        <span class="no">NO.05</span>
+        <div class="genre">历史穿越</div>
+        <h3>现代理工男穿越大晟当皇帝</h3>
+        <div class="plat">红果短剧 · AIGC 全流程</div>
+      </div>
+      <div class="work rise d3">
+        <span class="no">NO.06</span>
+        <div class="genre">古装喜剧</div>
+        <h3>穿越开酒馆，伙计全员怪胎</h3>
+        <div class="plat">红果短剧 · AIGC 全流程</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 02 资历时间线 ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="sec-top"><span class="no">02 / CREDENTIALS</span><span class="rule"></span></div>
+      <h2 class="sec-title">合作与<em>资历</em></h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item rise d1">
+        <span class="tl-year">2023</span>
+        <div class="tl-body">
+          <h3>独立 AIGC 影像创作与教学</h3>
+          <div class="cat">创作起点</div>
+          <p>从一个人一台电脑开始，搭建可复制的 AI 视频生产工作流，并把它打磨成普通人也能学会的课程体系。</p>
+        </div>
+      </div>
+      <div class="tl-item rise d2">
+        <span class="tl-year">2024—25</span>
+        <div class="tl-body">
+          <h3>红果短剧 & 海外平台 · 千万级爆款制作负责人</h3>
+          <div class="cat">平台作品</div>
+          <p>主导多部千万级播放短剧的 AIGC 全流程制作，作品覆盖红果短剧与海外英语市场，从剧本拆分、分镜生成到成片交付，<b>累计播放超 1 亿</b>。</p>
+        </div>
+      </div>
+      <div class="tl-item rise d2">
+        <span class="tl-year">2025</span>
+        <div class="tl-body">
+          <h3>Seedance 3 模型 · 全球内测创作者</h3>
+          <div class="cat">模型内测</div>
+          <p>获得字节跳动 Seedance 3 视频生成模型内测资格，参与模型能力评测，沉淀第一手创作方法论。</p>
+        </div>
+      </div>
+      <div class="tl-item rise d3">
+        <span class="tl-year">2025</span>
+        <div class="tl-body">
+          <h3>温州广电集团 · AIGC 培训战略合作导师</h3>
+          <div class="cat">机构合作</div>
+          <p>为广电主持人与编导团队交付 AIGC 短视频工作流系统内训，覆盖新闻、综艺与直播内容生产场景。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 教学理念 ================= -->
+<section>
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div class="sec-top"><span class="no">03 / TEACHING</span><span class="rule"></span></div>
+      <h2 class="sec-title">教学<em>理念</em></h2>
+    </div>
+    <div class="rise d1">
+      <p class="teach-lead">不是教工具，是教一套<b>能复制的生产线</b>。</p>
+    </div>
+
+    <!-- 五步生产线 -->
+    <div class="flow rise d2">
+      <div class="flow-step">
+        <span class="fn">01</span>
+        <b>选题评估</b>
+        <span>题材 × 钩子 × 受众，三角验证后再动手</span>
+      </div>
+      <div class="flow-step">
+        <span class="fn">02</span>
+        <b>剧本拆分</b>
+        <span>把剧本拆成可生成的镜头清单与分镜表</span>
+      </div>
+      <div class="flow-step">
+        <span class="fn">03</span>
+        <b>AI 批量生成</b>
+        <span>提示词模板驱动，300+ 镜头批量产出与筛选</span>
+      </div>
+      <div class="flow-step">
+        <span class="fn">04</span>
+        <b>剪辑成片</b>
+        <span>节奏、配乐、字幕，按爆款标准验收</span>
+      </div>
+      <div class="flow-step">
+        <span class="fn">05</span>
+        <b>上线推流</b>
+        <span>封面标题测试与发布策略，让算法替你推</span>
+      </div>
+    </div>
+
+    <!-- 三个理念 -->
+    <div class="ideas">
+      <div class="idea rise d1">
+        <div class="m">M.1</div>
+        <b>先跑通，再跑好</b>
+        <span>第一周就产出第一条完整短片，用最小闭环建立信心，再逐环节打磨质量。</span>
+      </div>
+      <div class="idea rise d2">
+        <div class="m">M.2</div>
+        <b>工作流大于工具</b>
+        <span>提示词模板、分镜表、审核清单全部交付——模型换了，流程照样跑。</span>
+      </div>
+      <div class="idea rise d3">
+        <div class="m">M.3</div>
+        <b>用爆款标准做练习</b>
+        <span>每节课的作业都按平台真实爆款的标准验收，学完就有能拿得出手的作品集。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 页脚 ================= -->
+<footer class="wrap">
+  <div class="foot-line"></div>
+  <div class="foot-en rise">ROWAN · CHEN JIALONG — AIGC VIDEO MENTOR</div>
+  <div class="foot-cn rise d1">把想象力，<b>做成千万级播放</b></div>
+</footer>
+
+<script>
+  if(location.search.includes('noanim')){
+    document.querySelectorAll('.rise').forEach(el=>el.classList.add('in'));
+  }
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}
+    });
+  },{threshold:.12});
+  document.querySelectorAll('.rise:not(.in)').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
