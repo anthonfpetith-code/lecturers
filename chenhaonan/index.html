@@ -23,6 +23,9 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
   body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
+  /* 全页噪点（胶片质感） */
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
   ::selection{background:rgba(90,140,122,.35)}
   .wrap{max-width:1060px;margin:0 auto;padding:0 28px}
   .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
@@ -68,6 +71,15 @@
   .sb-num i{font-style:normal;font-size:.55em;font-weight:400;margin-left:2px}
   .sb-label{font-size:12px;color:var(--ink-faint);letter-spacing:.04em;white-space:nowrap}
   .sb-sep{width:1px;height:26px;background:var(--line);flex:none;margin:0 6px}
+
+  /* ===== 跑马灯 ===== */
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;padding:15px 0;white-space:nowrap;margin-top:clamp(26px,4vw,38px)}
+  .marquee-track{display:inline-flex;gap:56px;animation:mq 30s linear infinite;will-change:transform}
+  .marquee span{font-size:12.5px;letter-spacing:.16em;color:var(--ink-faint)}
+  .marquee b{color:var(--green-light);font-weight:400}
+  @keyframes mq{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.marquee-track{animation:none}}
 
   /* ===== 通用板块 ===== */
   section{padding:clamp(44px,6.5vw,68px) 0 0}
@@ -216,6 +228,13 @@
   </div>
 </header>
 
+<!-- ================= 跑马灯 ================= -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="mq">
+    <span>10 年 <b>传统影视行业经验</b></span><span>累计辐射学员 <b>数十万人</b></span><span>AIGC 真人短剧 <b>全链路创作</b></span><span>东风日产 <b>·</b> 东阿阿胶 <b>·</b> 上汽进口 <b>·</b> 麦吉丽</span><span>临海青创学院 <b>AI 影视培训</b></span><span>嘉兴蓝环星 <b>AI 短剧实训营</b></span>
+  </div>
+</div>
+
 <!-- ================= 01 个人简介 ================= -->
 <section>
   <div class="wrap">
@@ -346,6 +365,9 @@
     });
   },{threshold:.12});
   document.querySelectorAll('.rise').forEach(el=>io.observe(el));
+
+  /* 跑马灯复制一份实现无缝循环 */
+  const mq=document.getElementById('mq');mq.innerHTML+=mq.innerHTML;
 </script>
 </body>
 </html>
