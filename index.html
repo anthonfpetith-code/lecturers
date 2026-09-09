@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>师资力量 · AIGC 讲师团队</title>
-<meta name="description" content="AIGC 讲师团队集合页：陈琪昌、陈昊男、王漪博、周于凯、陈家龙。覆盖 AIGC 视频工作流、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。">
+<title>AIGC 内容团队 · 团队介绍</title>
+<meta name="description" content="AIGC 内容团队：创始人王雅各（遥触灵境 CEO）与陈琪昌、陈昊男、王漪博、周于凯、陈家龙五位导师。覆盖平台操盘、AIGC 视频工作流、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。">
 <style>
   :root{
     --bg:#0D0F12;
@@ -40,6 +40,41 @@
   .count b{font-family:var(--serif);font-size:22px;color:var(--ink);letter-spacing:.02em}
 
   /* ===== 卡片网格 ===== */
+  /* ===== 分组标题 ===== */
+  .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(30px,4.5vw,48px) 0 clamp(18px,2.5vw,26px)}
+  .group-head .zh{font-family:var(--serif);font-size:clamp(20px,3vw,26px);font-weight:700;letter-spacing:.16em}
+  .group-head .en{font-size:11px;color:var(--ink-faint);letter-spacing:.3em;text-transform:uppercase}
+  .group-head::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ===== 创始人横版大卡 ===== */
+  .fgrid{display:grid;grid-template-columns:1fr;gap:22px}
+  .fcard{position:relative;display:grid;grid-template-columns:250px 1fr;
+    background:var(--bg-soft);border:1px solid var(--line);
+    text-decoration:none;color:inherit;overflow:hidden;
+    transition:transform .45s ease,border-color .45s ease,box-shadow .45s ease}
+  .fcard::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;
+    background:var(--c);opacity:.9;z-index:2}
+  .fcard:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));
+    box-shadow:0 24px 56px rgba(0,0,0,.5)}
+  .fcard:hover .more{color:var(--c);letter-spacing:.24em}
+  .fcard .photo-box{background:#fff}
+  .fcard .photo-box img{display:block;width:100%;height:100%;min-height:280px;object-fit:cover;
+    object-position:top center;filter:saturate(.94);transition:transform .6s ease,opacity .5s ease}
+  .fcard:hover .photo-box img{transform:scale(1.035)}
+  .fcard .body{display:flex;flex-direction:column;padding:26px 32px 26px}
+  .fcard .name-row{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+  .fcard .name{font-family:var(--serif);font-size:clamp(28px,3.6vw,38px);font-weight:700;letter-spacing:.12em}
+  .fcard .title{font-size:13px;color:var(--c);letter-spacing:.1em}
+  .fcard .desc{margin-top:12px;font-size:14px;color:var(--ink-dim);line-height:1.95;flex:1}
+  .fcard .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+  .fcard .chip{font-size:11.5px;color:var(--ink-dim);letter-spacing:.04em;
+    padding:4px 11px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
+  .fcard .more{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--ink-faint);letter-spacing:.2em;
+    display:flex;align-items:center;justify-content:space-between;
+    transition:color .4s ease,letter-spacing .4s ease}
+  .fcard .more::after{content:"→";font-family:var(--sans)}
+
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-bottom:clamp(64px,9vw,110px)}
   .card{
     position:relative;display:flex;flex-direction:column;
@@ -92,6 +127,9 @@
   @media (max-width:640px){
     .grid{grid-template-columns:1fr}
     .body{padding:18px 20px 20px}
+    .fcard{grid-template-columns:1fr}
+    .fcard .photo-box img{aspect-ratio:4/3;min-height:0;height:auto}
+    .fcard .body{padding:20px 22px}
   }
 </style>
 </head>
@@ -100,27 +138,44 @@
 
 <div class="wrap">
   <header class="rise">
-    <div class="tag">FACULTY · 师资力量</div>
-    <h1>AIGC 讲师团队</h1>
-    <p class="sub">深耕 <b>AIGC 视频创作与教学落地</b>的实战讲师阵容，覆盖工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
-    <div class="count"><b id="num">3</b><span>位讲师 / 持续扩充</span></div>
+    <div class="tag">TEAM · 团队阵容</div>
+    <h1>AIGC 内容团队</h1>
+    <p class="sub">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
+    <div class="count"><b id="numF">1</b><span>位创始人 · </span><b id="numM">5</b><span>位导师 / 持续扩充</span></div>
   </header>
 
-  <main class="grid" id="grid"></main>
+  <section>
+    <div class="group-head rise"><span class="zh">创始人</span><span class="en">Founder</span></div>
+    <div class="fgrid" id="fgrid"></div>
+  </section>
+  <section>
+    <div class="group-head rise"><span class="zh">导师团队</span><span class="en">Mentors</span></div>
+    <main class="grid" id="grid"></main>
+  </section>
 
-  <footer>AIGC 讲师团队 · 师资介绍</footer>
+  <footer>AIGC 内容团队 · 团队介绍</footer>
 </div>
 
 <script>
 /* =====================================================================
-   讲师数据（在这里加新讲师）
+   成员数据（在这里加新成员）
    ---------------------------------------------------------------------
    新增步骤：
-   1. 在仓库（本目录）下新建子文件夹，放入该讲师的 index.html 和 photo.jpg
+   1. 在仓库（本目录）下新建子文件夹，放入该成员的 index.html 和 photo.jpg
    2. 复制下面一组 { } 到数组末尾，改掉 name / dir / title / tags / desc
-   3. color 填该讲师页面主题色的十六进制值（卡片点缀条与标题色）
+   3. color 填该成员页面主题色的十六进制值（卡片点缀条与标题色）
+   4. group 填 "founder" 则归入创始人分区；不填或填其他值归入导师团队
    ===================================================================== */
 const LECTURERS = [
+  {
+    group: "founder",
+    name: "王雅各",
+    dir: "wangyage/",
+    title: "遥触灵境（杭州）科技 · 首席执行官",
+    color: "#A78BFA",
+    tags: ["10 年+ 平台操盘", "亿级爆款短剧", "年产能 1200+ 部"],
+    desc: "国内最早一批深耕短剧赛道的平台操盘手，10 年+互联网内容行业经验；主导头部平台短剧业务从 0 到 1，打造多个亿级播放量爆款；现带领遥触灵境深耕 AIGC 内容工业化与产教融合。"
+  },
   {
     name: "陈琪昌",
     dir: "chenqichang/",
@@ -164,8 +219,32 @@ const LECTURERS = [
 ];
 
 /* ---- 渲染（以下无需改动） ---- */
+const fgrid = document.getElementById("fgrid");
 const grid = document.getElementById("grid");
-LECTURERS.forEach((l, i) => {
+const founders = LECTURERS.filter(l => l.group === "founder");
+const mentors = LECTURERS.filter(l => l.group !== "founder");
+
+/* 创始人：横版大卡 */
+founders.forEach(l => {
+  const a = document.createElement("a");
+  a.className = "fcard rise";
+  a.href = l.dir;
+  a.style.setProperty("--c", l.color);
+  a.innerHTML = `
+    <div class="photo-box">
+      <img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">${l.name}</span><span class="title">${l.title}</span></div>
+      <p class="desc">${l.desc}</p>
+      <div class="chips">${l.tags.map(t => `<span class="chip">${t}</span>`).join("")}</div>
+      <span class="more">查看详情</span>
+    </div>`;
+  fgrid.appendChild(a);
+});
+
+/* 导师：网格卡片 */
+mentors.forEach((l, i) => {
   const a = document.createElement("a");
   a.className = "card rise d" + ((i % 3) + 1);
   a.href = l.dir;
@@ -183,7 +262,8 @@ LECTURERS.forEach((l, i) => {
     </div>`;
   grid.appendChild(a);
 });
-document.getElementById("num").textContent = LECTURERS.length;
+document.getElementById("numF").textContent = founders.length;
+document.getElementById("numM").textContent = mentors.length;
 
 /* ---- 入场动画 ---- */
 const io = new IntersectionObserver(es => {
