@@ -4,157 +4,197 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIGC 内容团队 · 团队介绍</title>
-<meta name="description" content="AIGC 内容团队：创始人王雅各（遥触灵境 CEO）与陈琪昌、陈昊男、王漪博、周于凯、陈家龙五位导师。覆盖平台操盘、AIGC 视频工作流、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。">
+<meta name="description" content="AIGC 内容团队：创始人王雅各（遥触灵境 CEO）、王梁正（联合创始人）与陈琪昌、陈昊男、王漪博、周于凯、陈家龙五位导师。覆盖平台操盘、AIGC 视频工作流、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。">
 <style>
   :root{
-    --bg:#0D0F12;
-    --bg-soft:#13161B;
-    --ink:#E5E7EA;
-    --ink-dim:#9AA3AD;
-    --ink-faint:#5C6570;
-    --line:#1F242B;
-    --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
-    --sans:"Noto Sans SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+    --bg:#F5F5F7;
+    --bg-soft:#FFFFFF;
+    --card:#FFFFFF;
+    --ink:#1D1D1F;
+    --ink-dim:#6E6E73;
+    --ink-faint:#AEAEB2;
+    --line:rgba(0,0,0,.06);
+    --tint:#0071E3;
+    --shadow-1:0 2px 8px rgba(0,0,0,.04),0 12px 32px rgba(0,0,0,.06);
+    --shadow-2:0 4px 12px rgba(0,0,0,.06),0 20px 48px rgba(0,0,0,.10);
+    --nav-bg:rgba(255,255,255,.72);
+    --dock-bg:rgba(255,255,255,.65);
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  }
+  html[data-theme="dark"]{
+    --bg:#1D1D1F;
+    --bg-soft:#1D1D1F;
+    --card:#2C2C2E;
+    --ink:#F5F5F7;
+    --ink-dim:#A1A1A6;
+    --ink-faint:#636366;
+    --line:rgba(255,255,255,.08);
+    --shadow-1:0 2px 8px rgba(0,0,0,.24),0 12px 32px rgba(0,0,0,.32);
+    --shadow-2:0 4px 12px rgba(0,0,0,.28),0 20px 48px rgba(0,0,0,.40);
+    --nav-bg:rgba(28,28,30,.68);
+    --dock-bg:rgba(44,44,46,.62);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.8;overflow-x:hidden}
-  ::selection{background:rgba(229,231,234,.25)}
-  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
-  .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(50rem 32rem at 80% -8%,rgba(229,231,234,.045),transparent 62%),
-      radial-gradient(40rem 28rem at -10% 40%,rgba(229,231,234,.025),transparent 60%)}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.7;
+    overflow-x:hidden;transition:background .5s ease,color .5s ease}
+  ::selection{background:rgba(0,113,227,.22)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
 
-  /* ===== Header ===== */
-  header{padding:clamp(56px,9vw,110px) 0 clamp(36px,5vw,52px)}
-  .tag{display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.34em;
-    color:var(--ink-dim);padding:8px 4px 8px 0;margin-bottom:22px}
-  .tag::before{content:"";width:34px;height:1px;background:var(--ink-dim);opacity:.7}
-  h1{font-family:var(--serif);font-weight:700;font-size:clamp(36px,6.5vw,58px);
-    letter-spacing:.12em;line-height:1.15}
-  .sub{margin-top:18px;font-size:clamp(14px,2.2vw,16px);color:var(--ink-dim);letter-spacing:.1em;max-width:640px}
+  /* ===== 顶部栏 ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:60;
+    backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);
+    background:var(--nav-bg);border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:1080px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:12px}
+  .brand{font-size:15px;font-weight:600;letter-spacing:.02em}
+  .brand i{font-style:normal;font-weight:500;color:var(--ink-dim);margin-left:6px;font-size:13px}
+  .topbar .spacer{flex:1}
+  .theme-btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+    background:var(--card);color:var(--ink);cursor:pointer;font-size:15px;
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .3s ease,box-shadow .3s ease}
+  .theme-btn:hover{transform:scale(1.08);box-shadow:var(--shadow-1)}
+  .theme-btn:active{transform:scale(.94)}
+
+  /* ===== Hero ===== */
+  header{padding:clamp(120px,16vw,168px) 0 clamp(30px,4vw,44px)}
+  .hero-tag{font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--ink-dim);
+    text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(38px,7vw,64px);font-weight:700;letter-spacing:-.02em;line-height:1.08}
+  .sub{margin-top:18px;font-size:clamp(15px,2.2vw,18px);color:var(--ink-dim);max-width:620px;line-height:1.75}
   .sub b{color:var(--ink);font-weight:600}
-  .count{display:flex;align-items:baseline;gap:8px;margin-top:26px;color:var(--ink-faint);
-    font-size:13px;letter-spacing:.18em}
-  .count b{font-family:var(--serif);font-size:22px;color:var(--ink);letter-spacing:.02em}
+  .count-row{margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .count-pill{display:inline-flex;align-items:baseline;gap:7px;padding:8px 18px;border-radius:999px;
+    background:var(--card);box-shadow:var(--shadow-1);font-size:13px;color:var(--ink-dim)}
+  .count-pill b{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
 
-  /* ===== 卡片网格 ===== */
   /* ===== 分组标题 ===== */
-  .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(30px,4.5vw,48px) 0 clamp(18px,2.5vw,26px)}
-  .group-head .zh{font-family:var(--serif);font-size:clamp(20px,3vw,26px);font-weight:700;letter-spacing:.16em}
-  .group-head .en{font-size:11px;color:var(--ink-faint);letter-spacing:.3em;text-transform:uppercase}
-  .group-head::after{content:"";flex:1;height:1px;background:var(--line)}
+  .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(36px,5vw,56px) 0 clamp(16px,2.5vw,24px)}
+  .group-head .zh{font-size:clamp(22px,3.4vw,30px);font-weight:700;letter-spacing:-.01em}
+  .group-head .en{font-size:12px;font-weight:600;color:var(--ink-faint);letter-spacing:.18em;text-transform:uppercase}
 
-  /* ===== 创始人横版大卡 ===== */
-  .fgrid{display:grid;grid-template-columns:1fr;gap:22px}
-  .fcard{position:relative;display:grid;grid-template-columns:250px 1fr;
-    background:var(--bg-soft);border:1px solid var(--line);
-    text-decoration:none;color:inherit;overflow:hidden;
-    transition:transform .45s ease,border-color .45s ease,box-shadow .45s ease}
-  .fcard::before{content:"";position:absolute;top:0;left:0;bottom:0;width:3px;
-    background:var(--c);opacity:.9;z-index:2}
-  .fcard:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));
-    box-shadow:0 24px 56px rgba(0,0,0,.5)}
-  .fcard:hover .more{color:var(--c);letter-spacing:.24em}
-  .fcard .photo-box{background:#fff}
-  .fcard .photo-box img{display:block;width:100%;height:100%;min-height:280px;object-fit:cover;
-    object-position:top center;filter:saturate(.94);transition:transform .6s ease,opacity .5s ease}
-  .fcard:hover .photo-box img{transform:scale(1.035)}
-  .fcard .body{display:flex;flex-direction:column;padding:26px 32px 26px}
-  .fcard .name-row{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-  .fcard .name{font-family:var(--serif);font-size:clamp(28px,3.6vw,38px);font-weight:700;letter-spacing:.12em}
-  .fcard .title{font-size:13px;color:var(--c);letter-spacing:.1em}
-  .fcard .desc{margin-top:12px;font-size:14px;color:var(--ink-dim);line-height:1.95;flex:1}
+  /* ===== 创始人横卡 ===== */
+  .fgrid{display:grid;gap:20px}
+  .fcard{position:relative;display:grid;grid-template-columns:240px 1fr;background:var(--card);
+    border-radius:24px;box-shadow:var(--shadow-1);text-decoration:none;color:inherit;overflow:hidden;
+    transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease}
+  .fcard:hover{transform:translateY(-5px) scale(1.005);box-shadow:var(--shadow-2)}
+  .fcard .photo-box{position:relative;background:var(--bg);min-height:250px}
+  .fcard .photo-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;
+    transition:transform .6s cubic-bezier(.22,1,.36,1)}
+  .fcard:hover .photo-box img{transform:scale(1.04)}
+  .fcard .body{padding:26px 30px;display:flex;flex-direction:column;min-width:0}
+  .fcard .name-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .fcard .name{font-size:clamp(26px,3.4vw,34px);font-weight:700;letter-spacing:-.01em}
+  .fcard .title{font-size:13.5px;font-weight:600;color:var(--c);letter-spacing:.02em}
+  .fcard .desc{margin-top:12px;font-size:14.5px;color:var(--ink-dim);line-height:1.85;flex:1}
   .fcard .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .fcard .chip{font-size:11.5px;color:var(--ink-dim);letter-spacing:.04em;
-    padding:4px 11px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
-  .fcard .more{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:12px;color:var(--ink-faint);letter-spacing:.2em;
-    display:flex;align-items:center;justify-content:space-between;
-    transition:color .4s ease,letter-spacing .4s ease}
-  .fcard .more::after{content:"→";font-family:var(--sans)}
+  .fcard .chip{font-size:12.5px;font-weight:500;color:var(--ink-dim);padding:5px 14px;
+    border-radius:999px;background:var(--bg)}
+  .fcard .go{margin-top:18px;font-size:13.5px;font-weight:600;color:var(--c);
+    display:inline-flex;align-items:center;gap:6px}
+  .fcard .go::after{content:"→";transition:transform .3s ease}
+  .fcard:hover .go::after{transform:translateX(4px)}
 
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding-bottom:clamp(64px,9vw,110px)}
-  .card{
-    position:relative;display:flex;flex-direction:column;
-    background:var(--bg-soft);border:1px solid var(--line);
-    text-decoration:none;color:inherit;overflow:hidden;
-    transition:transform .45s ease,border-color .45s ease,box-shadow .45s ease;
+  /* ===== 导师网格 ===== */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-bottom:clamp(120px,16vw,160px)}
+  .card{position:relative;display:flex;flex-direction:column;background:var(--card);
+    border-radius:22px;box-shadow:var(--shadow-1);text-decoration:none;color:inherit;overflow:hidden;
+    transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease}
+  .card:hover{transform:translateY(-6px);box-shadow:var(--shadow-2)}
+  .photo-box{position:relative;aspect-ratio:4/5;background:var(--bg);overflow:hidden}
+  .photo-box img{width:100%;height:100%;object-fit:cover;object-position:top center;
+    transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .5s ease}
+  .card:hover .photo-box img{transform:scale(1.045)}
+  .badge{position:absolute;top:14px;left:14px;padding:5px 13px;border-radius:999px;
+    background:rgba(255,255,255,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    font-size:11.5px;font-weight:600;color:#1D1D1F;letter-spacing:.02em;z-index:2}
+  .body{padding:20px 22px 22px;display:flex;flex-direction:column;flex:1;min-width:0}
+  .name-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap}
+  .name{font-size:21px;font-weight:700;letter-spacing:-.01em}
+  .title{font-size:12.5px;font-weight:600;color:var(--c)}
+  .desc{margin-top:8px;font-size:13.5px;color:var(--ink-dim);line-height:1.75;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+  .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .chip{font-size:11.5px;font-weight:500;color:var(--ink-dim);padding:4px 11px;border-radius:999px;background:var(--bg)}
+  .more{margin-top:14px;padding-top:13px;border-top:1px solid var(--line);
+    font-size:12.5px;font-weight:600;color:var(--ink-faint);letter-spacing:.04em;
+    display:flex;align-items:center;justify-content:space-between;transition:color .3s ease}
+  .card:hover .more{color:var(--c)}
+  .more::after{content:"→"}
+
+  footer{padding:34px 0 140px;text-align:center;font-size:12.5px;color:var(--ink-faint);letter-spacing:.06em}
+
+  /* ===== Dock ===== */
+  .dock{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:70;
+    display:flex;align-items:flex-end;gap:9px;padding:9px 13px;border-radius:24px;
+    background:var(--dock-bg);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);
+    border:1px solid var(--line);box-shadow:var(--shadow-2)}
+  .dock-item{position:relative;display:flex;flex-direction:column;align-items:center;
+    text-decoration:none;transition:transform .28s cubic-bezier(.22,1,.36,1)}
+  .dock-item img{width:44px;height:44px;border-radius:13px;object-fit:cover;object-position:top center;
+    box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .3s ease}
+  .dock-item .tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(4px);
+    padding:5px 13px;border-radius:10px;background:var(--card);box-shadow:var(--shadow-2);
+    font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;opacity:0;pointer-events:none;
+    transition:opacity .22s ease,transform .22s ease}
+  .dock-item:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
+  .dock-item .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-faint);margin-top:5px;
+    transition:background .3s ease}
+  .dock-item:hover .dot{background:var(--c)}
+
+  /* 入场动画 */
+  .rise{opacity:0;transform:translateY(22px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .rise.in{opacity:1;transform:translateY(0)}
+
+  @media (max-width:900px){
+    .grid{grid-template-columns:1fr 1fr}
   }
-  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;
-    background:var(--c);opacity:.85;z-index:2}
-  .card:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--c) 45%,var(--line));
-    box-shadow:0 24px 56px rgba(0,0,0,.5)}
-  .card:hover .more{color:var(--c);letter-spacing:.24em}
-  .photo-box{position:relative;overflow:hidden;background:#0a0a0a}
-  .photo-box img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:top center;
-    filter:saturate(.94) brightness(.98);transition:transform .6s ease,opacity .5s ease}
-  .card:hover .photo-box img{transform:scale(1.035)}
-  .photo-box::after{content:"";position:absolute;inset:0;
-    background:linear-gradient(180deg,transparent 55%,rgba(13,15,18,.55) 82%,rgba(13,15,18,.9) 100%)}
-  .badge{position:absolute;top:14px;left:14px;z-index:2;font-size:11px;letter-spacing:.16em;
-    padding:5px 12px;color:var(--ink);background:rgba(13,15,18,.72);
-    border:1px solid color-mix(in srgb,var(--c) 55%,transparent);backdrop-filter:blur(6px)}
-
-  .body{display:flex;flex-direction:column;flex:1;padding:20px 22px 22px}
-  .name-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  .name{font-family:var(--serif);font-size:clamp(22px,3vw,26px);font-weight:700;letter-spacing:.1em}
-  .title{font-size:12.5px;color:var(--c);letter-spacing:.1em}
-  .desc{margin-top:10px;font-size:13.5px;color:var(--ink-dim);line-height:1.95;flex:1}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-  .chip{font-size:11.5px;color:var(--ink-dim);letter-spacing:.04em;
-    padding:4px 11px;border:1px solid var(--line);background:rgba(255,255,255,.02)}
-  .more{margin-top:18px;padding-top:14px;border-top:1px solid var(--line);
-    font-size:12px;color:var(--ink-faint);letter-spacing:.2em;
-    display:flex;align-items:center;justify-content:space-between;
-    transition:color .4s ease,letter-spacing .4s ease}
-  .more::after{content:"→";font-family:var(--sans)}
-
-  footer{padding:26px 0 34px;border-top:1px solid var(--line);
-    font-size:12px;color:var(--ink-faint);letter-spacing:.14em;text-align:center}
-
-  /* ===== 入场动画 ===== */
-  .rise{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
-  .rise.in{opacity:1;transform:none}
-  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
-
-  @media (prefers-reduced-motion:reduce){
-    .rise{opacity:1;transform:none;transition:none}
-    .card,.photo-box img{transition:none}
-  }
-  @media (max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
   @media (max-width:640px){
     .grid{grid-template-columns:1fr}
-    .body{padding:18px 20px 20px}
     .fcard{grid-template-columns:1fr}
-    .fcard .photo-box img{aspect-ratio:4/3;min-height:0;height:auto}
-    .fcard .body{padding:20px 22px}
+    .fcard .photo-box{min-height:0;aspect-ratio:4/3}
+    .fcard .photo-box img{position:absolute}
+    .dock{gap:6px;padding:7px 9px;border-radius:20px}
+    .dock-item img{width:36px;height:36px;border-radius:11px}
   }
 </style>
 </head>
 <body>
-<div class="glow"></div>
 
-<div class="wrap">
-  <header class="rise">
-    <div class="tag">TEAM · 团队阵容</div>
-    <h1>AIGC 内容团队</h1>
-    <p class="sub">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
-    <div class="count"><b id="numF">1</b><span>位创始人 · </span><b id="numM">5</b><span>位导师 / 持续扩充</span></div>
-  </header>
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">AIGC 内容团队<i>Faculty & Founders</i></div>
+    <div class="spacer"></div>
+    <button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
+  </div>
+</div>
 
+<header class="wrap">
+  <div class="hero-tag rise">Team · 团队阵容</div>
+  <h1 class="rise d1">AIGC 内容团队</h1>
+  <p class="sub rise d2">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
+  <div class="count-row rise d3">
+    <span class="count-pill"><b id="numF">1</b> 位创始人</span>
+    <span class="count-pill"><b id="numM">5</b> 位导师</span>
+    <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
+  </div>
+</header>
+
+<main class="wrap">
   <section>
     <div class="group-head rise"><span class="zh">创始人</span><span class="en">Founder</span></div>
     <div class="fgrid" id="fgrid"></div>
   </section>
   <section>
     <div class="group-head rise"><span class="zh">导师团队</span><span class="en">Mentors</span></div>
-    <main class="grid" id="grid"></main>
+    <div class="grid" id="grid"></div>
   </section>
 
-  <footer>AIGC 内容团队 · 团队介绍</footer>
-</div>
+  <footer class="rise">AIGC 内容团队 · 团队介绍</footer>
+</main>
+
+<nav class="dock" id="dock" aria-label="成员快速导航"></nav>
 
 <script>
 /* =====================================================================
@@ -163,7 +203,7 @@
    新增步骤：
    1. 在仓库（本目录）下新建子文件夹，放入该成员的 index.html 和 photo.jpg
    2. 复制下面一组 { } 到数组末尾，改掉 name / dir / title / tags / desc
-   3. color 填该成员页面主题色的十六进制值（卡片点缀条与标题色）
+   3. color 填该成员页面的 tint 主题色（十六进制）
    4. group 填 "founder" 则归入创始人分区；不填或填其他值归入导师团队
    ===================================================================== */
 const LECTURERS = [
@@ -172,7 +212,7 @@ const LECTURERS = [
     name: "王雅各",
     dir: "wangyage/",
     title: "遥触灵境（杭州）科技 · 首席执行官",
-    color: "#A78BFA",
+    color: "#7C5CFC",
     tags: ["10 年+ 平台操盘", "亿级爆款短剧", "年产能 1200+ 部"],
     desc: "国内最早一批深耕短剧赛道的平台操盘手，10 年+互联网内容行业经验；主导头部平台短剧业务从 0 到 1，打造多个亿级播放量爆款；现带领遥触灵境深耕 AIGC 内容工业化与产教融合。"
   },
@@ -181,7 +221,7 @@ const LECTURERS = [
     name: "王梁正",
     dir: "wangliangzheng/",
     title: "遥触灵境（杭州）科技 · 联合创始人",
-    color: "#E09E6D",
+    color: "#C77E42",
     tags: ["7 年互联网营销", "AIGC 市场体系 0→1", "B 端生态合作"],
     desc: "深耕 AIGC 领域 4 年+，7 年互联网市场营销与业务拓展经验；从 0 到 1 搭建完整 AIGC 产品市场体系，在 B 端客户拓展与生态合作构建方面积累丰富实战经验，代表公司达成中南卡通、中泽空间等多项战略合作。"
   },
@@ -189,70 +229,78 @@ const LECTURERS = [
     name: "陈琪昌",
     dir: "chenqichang/",
     title: "AIGC 视频训练师",
-    color: "#D4AF37",
+    color: "#C9971C",
     tags: ["AIGC 视频工作流", "千万级播放", "Seedance 2.5 先行者"],
-    desc: "累计完成 2000+ 分钟 AIGC 内容制作，多部作品千万级播放；Seedance 2.5 / Happyhorse 内测工作流开发先行者，自研漫剧前置资产 Skills 工作流；温州广电三期百人培训、武汉文理学院二期培训落地交付。"
+    desc: "AIGC 视频训练师、工作流前沿研究者；累计完成 2000+ 分钟 AIGC 内容，多部作品千万级播放；Seedance 2.5 / Happyhorse 内测工作流开发先行者，自研漫剧前置资产 Skills 工作流。"
   },
   {
     name: "陈昊男",
     dir: "chenhaonan/",
     title: "实战派短视频导师",
-    color: "#7DB5A0",
-    tags: ["10 年传统影视经验", "数十万学员", "企业 AIGC 转型"],
-    desc: "从传统影视到 AIGC 内容创作的成功转型者，10 年传统影视行业经验；服务东风日产、东阿阿胶、上汽进口、麦吉丽等品牌；临海青创学院 AI 影视培训班（一、二期）、嘉兴蓝环星 OPC 超级社区 AI 短剧实训营（一、二、三期）主讲。"
+    color: "#3E8E6D",
+    tags: ["10 年传统影视", "AIGC 真人短剧", "企业转型赋能"],
+    desc: "实战派短视频导师、AIGC 讲师，10 年传统影视经验；深耕 AIGC 真人短剧创作与短视频实战教育，服务东风日产、东阿阿胶、上汽进口、麦吉丽等品牌，培训足迹覆盖杭州、武汉、深圳、上海。"
   },
   {
     name: "周于凯",
     dir: "zhouyukai/",
     title: "AIGC 视频创作专家",
-    color: "#C9D1D9",
-    tags: ["2000+ 分钟 AIGC 创作", "千万级播放", "AI 短剧讲师"],
-    desc: "AIGC 视频创作专家、AI 短剧讲师。累计创作内容超 2000 分钟，作品覆盖红果剧场、TikTok 等主流平台，多部作品播放量突破千万级；温州广电三期 AI 短剧专项培训、各区县文旅系统 AI 宣传片创作培训。"
+    color: "#5B6B7A",
+    tags: ["2000+ 分钟创作", "千万级播放", "温州广电三期培训"],
+    desc: "AIGC 视频创作专家 & AI 短剧讲师；累计创作内容超 2000 分钟，作品覆盖红果剧场、TikTok 等主流平台，多部作品播放量突破千万级；兼具实战经验与教学能力，助力传统行业实现 AI 内容升级。"
   },
   {
     name: "陈家龙",
     dir: "chenjialong/",
     title: "AIGC 视频导师",
-    color: "#D46A7E",
+    color: "#C25E6E",
     tags: ["单部 8000 万+ 播放", "累计播放 1 亿+", "温州广电合作导师"],
-    desc: "红果短剧与海外平台多部千万级爆款制作负责人，作品累计播放超 1 亿，单部最佳 8000 万+；温州广电集团 AIGC 培训战略合作导师。"
+    desc: "AIGC 视频导师，红果短剧与海外短剧平台千万级爆款制作负责人，作品累计播放超 1 亿；兼具实战经验与教学能力，把想象力做成千万级播放。"
   },
   {
     name: "王漪博",
     dir: "wangyibo/",
     title: "AIGC 影视训练讲师",
-    color: "#38BDF8",
-    tags: ["AI 短剧全流程", "提示词工程", "降本增效"],
-    desc: "六大课程模块覆盖 AI 短剧全流程：提示词工程、分镜运镜、人物资产、商业视觉与变现路径；爆款率达行业均值 2.3 倍，单条视频制作成本降低 80%。"
+    color: "#3A7CA5",
+    tags: ["AI 影视全流程", "商业视觉实战", "六大课程模块"],
+    desc: "AIGC 影视训练讲师；聚焦 AI 影视创作全流程教学，从提示词工程、分镜运镜到商业视觉落地与变现路径，帮助学员完成从工具认知到商业作品的跨越。"
   }
 ];
 
-/* ---- 渲染（以下无需改动） ---- */
+/* ---- 主题切换 ---- */
+const themeBtn = document.getElementById("themeBtn");
+const savedTheme = localStorage.getItem("theme") || "light";
+document.documentElement.dataset.theme = savedTheme;
+themeBtn.textContent = savedTheme === "dark" ? "☀" : "◐";
+themeBtn.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem("theme", next);
+  themeBtn.textContent = next === "dark" ? "☀" : "◐";
+});
+
+/* ---- 渲染 ---- */
 const fgrid = document.getElementById("fgrid");
 const grid = document.getElementById("grid");
 const founders = LECTURERS.filter(l => l.group === "founder");
 const mentors = LECTURERS.filter(l => l.group !== "founder");
 
-/* 创始人：横版大卡 */
 founders.forEach(l => {
   const a = document.createElement("a");
   a.className = "fcard rise";
   a.href = l.dir;
   a.style.setProperty("--c", l.color);
   a.innerHTML = `
-    <div class="photo-box">
-      <img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy">
-    </div>
+    <div class="photo-box"><img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"></div>
     <div class="body">
       <div class="name-row"><span class="name">${l.name}</span><span class="title">${l.title}</span></div>
       <p class="desc">${l.desc}</p>
       <div class="chips">${l.tags.map(t => `<span class="chip">${t}</span>`).join("")}</div>
-      <span class="more">查看详情</span>
+      <span class="go">查看详情</span>
     </div>`;
   fgrid.appendChild(a);
 });
 
-/* 导师：网格卡片 */
 mentors.forEach((l, i) => {
   const a = document.createElement("a");
   a.className = "card rise d" + ((i % 3) + 1);
@@ -274,10 +322,33 @@ mentors.forEach((l, i) => {
 document.getElementById("numF").textContent = founders.length;
 document.getElementById("numM").textContent = mentors.length;
 
+/* ---- Dock（macOS 风：hover 放大 + 邻居递减） ---- */
+const dock = document.getElementById("dock");
+const dockItems = [];
+LECTURERS.forEach(l => {
+  const a = document.createElement("a");
+  a.className = "dock-item";
+  a.href = l.dir;
+  a.style.setProperty("--c", l.color);
+  a.innerHTML = `<span class="tip">${l.name} · ${l.title.split("·").pop().trim()}</span><img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"><span class="dot"></span>`;
+  dock.appendChild(a);
+  dockItems.push(a);
+});
+dockItems.forEach((item, idx) => {
+  item.addEventListener("mouseenter", () => {
+    dockItems.forEach((other, j) => {
+      const dist = Math.abs(idx - j);
+      const scale = dist === 0 ? 1.5 : dist === 1 ? 1.22 : dist === 2 ? 1.08 : 1;
+      other.style.transform = `scale(${scale}) translateY(${dist === 0 ? -8 : dist === 1 ? -4 : 0}px)`;
+    });
+  });
+});
+dock.addEventListener("mouseleave", () => dockItems.forEach(i => i.style.transform = ""));
+
 /* ---- 入场动画 ---- */
-const io = new IntersectionObserver(es => {
-  es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-}, { threshold: .12 });
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}), {threshold:.1});
 document.querySelectorAll(".rise").forEach(el => io.observe(el));
 </script>
 </body>
