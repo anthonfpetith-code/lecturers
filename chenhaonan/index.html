@@ -55,7 +55,14 @@
   .nav-links a{font-size:13px;font-weight:500;color:var(--ink-dim);text-decoration:none;
     padding:7px 14px;border-radius:999px;transition:color .25s ease,background .25s ease}
   .nav-links a:hover{color:var(--ink);background:rgba(62,142,109,.10)}
-  .theme-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);
+    /* 返回集合页按钮 */
+  .back-btn{display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:var(--tint);
+    text-decoration:none;padding:7px 13px 7px 9px;border-radius:999px;
+    transition:background .25s ease,transform .25s ease}
+  .back-btn:hover{background:var(--tint-soft)}
+  .back-btn:active{transform:scale(.96)}
+  .back-btn .arr{font-size:16px;font-weight:700;margin-right:3px;line-height:1}
+.theme-btn{width:32px;height:32px;border-radius:50%;border:1px solid var(--line);
     background:var(--card);color:var(--ink);cursor:pointer;font-size:14px;
     display:flex;align-items:center;justify-content:center;margin-left:6px;
     transition:transform .3s ease,box-shadow .3s ease}
@@ -250,6 +257,7 @@
 <body>
 <nav class="nav" id="nav">
   <div class="nav-inner">
+    <a class="back-btn" href="../" aria-label="返回师资目录首页"><span class="arr">‹</span>返回首页</a>
     <div class="nav-name"><img src="photo.jpg" alt="陈昊男">陈昊男</div>
     <div class="nav-links">
       <a href="#profile">简介</a>
