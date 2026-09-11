@@ -44,7 +44,9 @@
   /* ===== 顶部栏 ===== */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:60;
     backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);
-    background:var(--nav-bg);border-bottom:1px solid var(--line)}
+    background:transparent;border-bottom:1px solid transparent;
+    transition:background .4s ease,border-color .4s ease}
+  .topbar.solid{background:var(--nav-bg);border-bottom:1px solid var(--line)}
   .topbar-inner{max-width:1080px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:12px}
   .brand{font-size:15px;font-weight:600;letter-spacing:.02em}
   .brand i{font-style:normal;font-weight:500;color:var(--ink-dim);margin-left:6px;font-size:13px}
@@ -298,6 +300,12 @@ themeBtn.addEventListener("click", () => {
   localStorage.setItem("theme", next);
   themeBtn.textContent = next === "dark" ? "☀" : "◐";
 });
+
+/* ---- 顶栏：页面在顶部时透明，滚动后浮现毛玻璃条 ---- */
+const topbar = document.querySelector(".topbar");
+const syncTopbar = () => topbar.classList.toggle("solid", window.scrollY > 36);
+window.addEventListener("scroll", syncTopbar, { passive: true });
+syncTopbar();
 
 /* ---- 渲染 ---- */
 const fgrid = document.getElementById("fgrid");
