@@ -193,7 +193,7 @@
     <a class="count-pill" href="#founders"><b id="numF">1</b> 位创始人</a>
     <a class="count-pill" href="#mentors"><b id="numM">5</b> 位导师</a>
     <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
-    <a class="count-pill demo-pill" href="demos/"><b>5</b> 部 Demo 作品 →</a>
+    <a class="count-pill demo-pill" href="demos/">Demo 作品 →</a>
   </div>
 </header>
 
@@ -362,8 +362,6 @@ function countUp(el, target, dur){
 setTimeout(() => {
   countUp(document.getElementById("numF"), founders.length, 700);
   countUp(document.getElementById("numM"), mentors.length, 900);
-  const demoNum = document.querySelector(".demo-pill b");
-  if (demoNum) countUp(demoNum, 5, 1100);
 }, 400);
 
 /* ---- 卡片 3D 倾斜（rAF 阻尼插值，跟手且带回弹） ---- */
