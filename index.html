@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-<head>
+<html lang="zh-CN" data-theme="dark"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>AIGC 内容团队 · 团队介绍</title>
@@ -170,6 +169,21 @@
   @media (max-width:900px){
     .grid{grid-template-columns:1fr 1fr}
   }
+  /* ===== 漂浮物彩蛋 ===== */
+  #bg-objs{position:fixed;inset:0;z-index:-2;pointer-events:none}
+  .float-toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%) translateY(10px);z-index:90;
+    padding:11px 22px;border-radius:999px;background:rgba(29,29,31,.88);color:#fff;font-size:13px;font-weight:600;
+    letter-spacing:.02em;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    box-shadow:0 10px 32px rgba(0,0,0,.22);opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease}
+  .float-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  @keyframes microShake{
+    0%,100%{transform:translate(0,0)}
+    20%{transform:translate(-3px,1px)}
+    40%{transform:translate(3px,-1px)}
+    60%{transform:translate(-2px,-1px)}
+    80%{transform:translate(2px,1px)}
+  }
+  body.shake{animation:microShake .32s ease}
   @media (max-width:640px){
     .grid{grid-template-columns:1fr}
     .fcard{grid-template-columns:1fr}
@@ -182,35 +196,112 @@
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress"></div>
-<button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
+<canvas id="bg-objs" aria-hidden="true"></canvas>
+<div class="float-toast" id="floatToast">能量已注入 AIGC 流水线 🎬</div>
+
+<div class="scroll-progress" id="scrollProgress" style="width: 11.6144%;"></div>
+<button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">☀</button>
 
 <header class="wrap">
-  <div class="hero-tag rise">Team · 团队阵容</div>
-  <h1 class="rise d1">AIGC 内容团队</h1>
-  <p class="sub rise d2">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
-  <div class="count-row rise d3">
-    <a class="count-pill" href="#founders"><b id="numF">1</b> 位创始人</a>
-    <a class="count-pill" href="#mentors"><b id="numM">5</b> 位导师</a>
+  <div class="hero-tag rise in">Team · 团队阵容</div>
+  <h1 class="rise d1 in">AIGC 内容团队</h1>
+  <p class="sub rise d2 in">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
+  <div class="count-row rise d3 in">
+    <a class="count-pill" href="#founders"><b id="numF">2</b> 位创始人</a>
+    <a class="count-pill" href="#mentors"><b id="numM">6</b> 位导师</a>
     <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
-    <a class="count-pill demo-pill" href="demos/">Demo 作品 →</a>
+    <a class="count-pill demo-pill" href="demos/" style="font-size: 15px; font-weight: bold">Demo 作品 →</a>
   </div>
 </header>
 
 <main class="wrap">
   <section id="founders">
-    <div class="group-head rise"><span class="zh">创始人</span><span class="en">Founder</span></div>
-    <div class="fgrid" id="fgrid"></div>
+    <div class="group-head rise in"><span class="zh">创始人</span><span class="en">Founder</span></div>
+    <div class="fgrid" id="fgrid"><a class="fcard rise in" href="wangyage/" style="--c: #7C5CFC;">
+    <div class="photo-box"><img src="wangyage/photo.jpg" alt="王雅各" loading="lazy"></div>
+    <div class="body">
+      <div class="name-row"><span class="name">王雅各</span><span class="title">遥触灵境（杭州）科技 · 首席执行官</span></div>
+      <p class="desc">国内最早一批深耕短剧赛道的平台操盘手，10 年+互联网内容行业经验；主导头部平台短剧业务从 0 到 1，打造多个亿级播放量爆款；现带领遥触灵境深耕 AIGC 内容工业化与产教融合。</p>
+      <div class="chips"><span class="chip">10 年+ 平台操盘</span><span class="chip">亿级爆款短剧</span><span class="chip">年产能 1200+ 部</span></div>
+      <span class="go">查看详情</span>
+    </div></a><a class="fcard rise in" href="wangliangzheng/" style="--c: #C77E42;">
+    <div class="photo-box"><img src="wangliangzheng/photo.jpg" alt="王梁正" loading="lazy"></div>
+    <div class="body">
+      <div class="name-row"><span class="name">王梁正</span><span class="title">遥触灵境（杭州）科技 · 联合创始人</span></div>
+      <p class="desc">深耕 AIGC 领域 4 年+，7 年互联网市场营销与业务拓展经验；从 0 到 1 搭建完整 AIGC 产品市场体系，在 B 端客户拓展与生态合作构建方面积累丰富实战经验，代表公司达成中南卡通、中泽空间等多项战略合作。</p>
+      <div class="chips"><span class="chip">7 年互联网营销</span><span class="chip">AIGC 市场体系 0→1</span><span class="chip">B 端生态合作</span></div>
+      <span class="go">查看详情</span>
+    </div></a></div>
   </section>
   <section id="mentors">
-    <div class="group-head rise"><span class="zh">导师团队</span><span class="en">Mentors</span></div>
-    <div class="grid" id="grid"></div>
+    <div class="group-head rise in"><span class="zh">导师团队</span><span class="en">Mentors</span></div>
+    <div class="grid" id="grid"><a class="card rise d1 in" href="chenqichang/" style="--c: #C9971C;">
+    <div class="photo-box">
+      <span class="badge">AIGC 视频训练师</span>
+      <img src="chenqichang/photo.jpg" alt="陈琪昌" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">陈琪昌</span><span class="title">AIGC 视频训练师</span></div>
+      <p class="desc">AIGC 视频训练师、工作流前沿研究者；累计完成 2000+ 分钟 AIGC 内容，多部作品千万级播放；Seedance 2.5 / Happyhorse 内测工作流开发先行者，自研漫剧前置资产 Skills 工作流。</p>
+      <div class="chips"><span class="chip">AIGC 视频工作流</span><span class="chip">千万级播放</span><span class="chip">Seedance 2.5 先行者</span></div>
+      <span class="more">查看详情</span>
+    </div></a><a class="card rise d2 in" href="geweibin/" style="--c: #D1567F;">
+    <div class="photo-box">
+      <span class="badge">AIGC 视频创作专家</span>
+      <img src="geweibin/photo.jpg" alt="葛蔚斌" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">葛蔚斌</span><span class="title">AIGC 视频创作专家</span></div>
+      <p class="desc">AIGC 视频创作专家 &amp; AI 短剧讲师；累计创作内容超 2000 分钟，多部作品千万级播放；温州广电三期 AI 短剧专项培训、温州文旅 AI 宣传片培训，并面向宁波企业、临海青创学院（政府联合创办）交付企业 AI 培训。</p>
+      <div class="chips"><span class="chip">2000+ 分钟创作</span><span class="chip">千万级播放</span><span class="chip">企业 AI 培训交付</span></div>
+      <span class="more">查看详情</span>
+    </div></a><a class="card rise d3 in" href="chenhaonan/" style="--c: #3E8E6D;">
+    <div class="photo-box">
+      <span class="badge">实战派短视频导师</span>
+      <img src="chenhaonan/photo.jpg" alt="陈昊男" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">陈昊男</span><span class="title">实战派短视频导师</span></div>
+      <p class="desc">实战派短视频导师、AIGC 讲师，10 年传统影视经验；深耕 AIGC 真人短剧创作与短视频实战教育，服务东风日产、东阿阿胶、上汽进口、麦吉丽等品牌，培训足迹覆盖杭州、武汉、深圳、上海。</p>
+      <div class="chips"><span class="chip">10 年传统影视</span><span class="chip">AIGC 真人短剧</span><span class="chip">企业转型赋能</span></div>
+      <span class="more">查看详情</span>
+    </div></a><a class="card rise d1 in" href="zhouyukai/" style="--c: #5B6B7A;">
+    <div class="photo-box">
+      <span class="badge">AIGC 视频创作专家</span>
+      <img src="zhouyukai/photo.jpg" alt="周于凯" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">周于凯</span><span class="title">AIGC 视频创作专家</span></div>
+      <p class="desc">AIGC 视频创作专家 &amp; AI 短剧讲师；累计创作内容超 2000 分钟，作品覆盖红果剧场、TikTok 等主流平台，多部作品播放量突破千万级；兼具实战经验与教学能力，助力传统行业实现 AI 内容升级。</p>
+      <div class="chips"><span class="chip">2000+ 分钟创作</span><span class="chip">千万级播放</span><span class="chip">温州广电三期培训</span></div>
+      <span class="more">查看详情</span>
+    </div></a><a class="card rise d2" href="chenjialong/" style="--c: #C25E6E;">
+    <div class="photo-box">
+      <span class="badge">AIGC 视频导师</span>
+      <img src="chenjialong/photo.jpg" alt="陈家龙" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">陈家龙</span><span class="title">AIGC 视频导师</span></div>
+      <p class="desc">AIGC 视频导师，红果短剧与海外短剧平台千万级爆款制作负责人，作品累计播放超 1 亿；兼具实战经验与教学能力，把想象力做成千万级播放。</p>
+      <div class="chips"><span class="chip">单部 8000 万+ 播放</span><span class="chip">累计播放 1 亿+</span><span class="chip">温州广电合作导师</span></div>
+      <span class="more">查看详情</span>
+    </div></a><a class="card rise d3" href="wangyibo/" style="--c: #3A7CA5;">
+    <div class="photo-box">
+      <span class="badge">AIGC 影视训练讲师</span>
+      <img src="wangyibo/photo.jpg" alt="王漪博" loading="lazy">
+    </div>
+    <div class="body">
+      <div class="name-row"><span class="name">王漪博</span><span class="title">AIGC 影视训练讲师</span></div>
+      <p class="desc">AIGC 影视训练讲师；聚焦 AI 影视创作全流程教学，从提示词工程、分镜运镜到商业视觉落地与变现路径，帮助学员完成从工具认知到商业作品的跨越。</p>
+      <div class="chips"><span class="chip">AI 影视全流程</span><span class="chip">商业视觉实战</span><span class="chip">六大课程模块</span></div>
+      <span class="more">查看详情</span>
+    </div></a></div>
   </section>
 
   <footer class="rise">AIGC 内容团队 · 团队介绍</footer>
 </main>
 
-<nav class="dock" id="dock" aria-label="成员快速导航"></nav>
+<nav class="dock" id="dock" aria-label="成员快速导航"><a class="dock-item" href="wangyage/" style="--c: #7C5CFC;"><span class="tip">王雅各 · 首席执行官</span><img src="wangyage/photo.jpg" alt="王雅各" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="wangliangzheng/" style="--c: #C77E42;"><span class="tip">王梁正 · 联合创始人</span><img src="wangliangzheng/photo.jpg" alt="王梁正" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenqichang/" style="--c: #C9971C;"><span class="tip">陈琪昌 · AIGC 视频训练师</span><img src="chenqichang/photo.jpg" alt="陈琪昌" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="geweibin/" style="--c: #D1567F;"><span class="tip">葛蔚斌 · AIGC 视频创作专家</span><img src="geweibin/photo.jpg" alt="葛蔚斌" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenhaonan/" style="--c: #3E8E6D;"><span class="tip">陈昊男 · 实战派短视频导师</span><img src="chenhaonan/photo.jpg" alt="陈昊男" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="zhouyukai/" style="--c: #5B6B7A;"><span class="tip">周于凯 · AIGC 视频创作专家</span><img src="zhouyukai/photo.jpg" alt="周于凯" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenjialong/" style="--c: #C25E6E;"><span class="tip">陈家龙 · AIGC 视频导师</span><img src="chenjialong/photo.jpg" alt="陈家龙" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="wangyibo/" style="--c: #3A7CA5;"><span class="tip">王漪博 · AIGC 影视训练讲师</span><img src="wangyibo/photo.jpg" alt="王漪博" loading="lazy"><span class="dot"></span></a></nav>
 
 <script>
 /* =====================================================================
@@ -428,6 +519,286 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
 }), {threshold:.1});
 document.querySelectorAll(".rise").forEach(el => io.observe(el));
+
+/* =====================================================================
+   背景漂浮物彩蛋（A+）：4 物种 · 拖转 · 击飞 · 连击震屏
+   ===================================================================== */
+(() => {
+  const canvas = document.getElementById("bg-objs");
+  const toast = document.getElementById("floatToast");
+  if (!canvas || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const ctx = canvas.getContext("2d");
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  let W = innerWidth, H = innerHeight;
+  const resize = () => {
+    W = innerWidth; H = innerHeight;
+    canvas.width = W * DPR; canvas.height = H * DPR;
+    canvas.style.width = W + "px"; canvas.style.height = H + "px";
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  };
+  resize(); addEventListener("resize", resize);
+
+  /* 主题调色板（跟随深浅色） */
+  const PALS = {
+    light: { film:"124,92,252", bubble:"0,113,227", pixel:"180,138,46", node:"58,124,165", a:.11, a2:.2 },
+    dark:  { film:"170,146,255", bubble:"120,185,255", pixel:"218,185,110", node:"140,195,235", a:.17, a2:.3 }
+  };
+  let pal = PALS.light;
+  const syncTheme = () => { pal = document.documentElement.dataset.theme === "dark" ? PALS.dark : PALS.light; };
+  new MutationObserver(syncTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  syncTheme();
+
+  const rnd = (a, b) => a + Math.random() * (b - a);
+  const TYPES = ["film", "bubble", "pixel", "node"];
+
+  class Floater {
+    constructor(type){ this.type = type; this.respawn(false); }
+    respawn(edge){
+      this.size = rnd(26, 54);
+      this.x = rnd(this.size + 10, W - this.size - 10);
+      if (edge){ this.y = Math.random() < .5 ? H + this.size + rnd(30, 120) : -this.size - rnd(30, 120); }
+      else this.y = rnd(this.size + 10, H - this.size - 10);
+      const dir = edge ? (this.y > H ? -1 : 1) : (Math.random() < .5 ? -1 : 1);
+      this.vy = dir * rnd(.18, .45);
+      this.vx = rnd(-.18, .18);
+      this.angle = rnd(0, Math.PI * 2); this.va = rnd(-.005, .005);
+      this.state = "idle"; this.rebirth = 0;
+      this.flash = 0; this.launchAt = 0;      // 胶片闪帧后击飞
+      this.wob = rnd(0, 6.28); this.jitter = 0;
+      this.trail = []; this.hover = false;
+    }
+    get color(){ return pal[this.type] || pal.film; }
+    hit(px, py){
+      if (this.state === "dead") return false;
+      const dx = px - this.x, dy = py - this.y, r = this.size * .68 + 16;
+      return dx * dx + dy * dy < r * r;
+    }
+    launch(ix, iy, power){           // 击飞：沿点击点→物体中心方向冲出
+      let dx = this.x - ix, dy = this.y - iy;
+      const d = Math.hypot(dx, dy) || 1;
+      this.vx = dx / d * power; this.vy = dy / d * power;
+      this.va = (Math.random() < .5 ? -1 : 1) * rnd(.12, .3);
+      this.state = "flying";
+      if (this.type === "node") this.trail = [];
+    }
+    update(dt){
+      if (this.state === "dead"){
+        this.rebirth -= dt;
+        if (this.rebirth <= 0) this.respawn(true);
+        return;
+      }
+      if (this.state !== "drag"){
+        this.x += this.vx * dt * .06;
+        this.y += this.vy * dt * .06;
+        this.angle += this.va * dt * .06;
+      }
+      this.wob += .0025 * dt;
+      if (this.flash > 0 && performance.now() >= this.launchAt){
+        this.flash = 0;
+        this.launch(this.x - this.vx, this.y - this.vy, 11);
+        onKnockout(this);
+      }
+      if (this.type === "node" && this.state === "flying"){
+        this.trail.push([this.x, this.y]);
+        if (this.trail.length > 26) this.trail.shift();
+      }
+      if (this.state === "idle"){           // 边界反弹（仅游荡态）
+        const m = this.size * .6;
+        if (this.x < m){ this.x = m; this.vx = Math.abs(this.vx); }
+        if (this.x > W - m){ this.x = W - m; this.vx = -Math.abs(this.vx); }
+        if (this.y < m){ this.y = m; this.vy = Math.abs(this.vy); }
+        if (this.y > H - m){ this.y = H - m; this.vy = -Math.abs(this.vy); }
+      }
+      const out = this.x < -this.size - 80 || this.x > W + this.size + 80 ||
+                  this.y < -this.size - 80 || this.y > H + this.size + 80;
+      if (out && this.state === "flying"){ this.state = "dead"; this.rebirth = rnd(5000, 10000); this.trail = []; }
+    }
+    draw(){
+      if (this.state === "dead") return;
+      if (this.type === "node" && this.trail.length > 1){   // 光尾：屏幕坐标，未变换
+        for (let i = 1; i < this.trail.length; i++){
+          const t = i / this.trail.length;
+          ctx.strokeStyle = `rgba(${this.color},${t * pal.a * 1.6})`;
+          ctx.lineWidth = 1 + t * 1.6;
+          ctx.beginPath();
+          ctx.moveTo(this.trail[i - 1][0], this.trail[i - 1][1]);
+          ctx.lineTo(this.trail[i][0], this.trail[i][1]);
+          ctx.stroke();
+        }
+      }
+      const a = this.hover || this.state === "drag" ? pal.a2 : pal.a;
+      ctx.save();
+      ctx.translate(this.x + (this.jitter > 0 ? rnd(-1.5, 1.5) : 0), this.y + (this.jitter > 0 ? rnd(-1.5, 1.5) : 0));
+      ctx.rotate(this.angle);
+      ctx.fillStyle = `rgba(${this.color},${a})`;
+      ctx.strokeStyle = `rgba(${this.color},${Math.min(a + .08, .5)})`;
+      ctx.lineWidth = 1.4;
+      const s = this.size;
+      if (this.type === "film"){
+        const h = s * .74;
+        ctx.beginPath(); roundRect(-s / 2, -h / 2, s, h, 5); ctx.fill();
+        ctx.fillStyle = `rgba(${this.color},${a + .1})`;
+        for (let i = 0; i < 4; i++){                    // 齿孔
+          ctx.fillRect(-s / 2 + s * .12 + i * s * .21, -h / 2 + 2.2, s * .07, 3);
+          ctx.fillRect(-s / 2 + s * .12 + i * s * .21, h / 2 - 5.2, s * .07, 3);
+        }
+        const on = this.flash > 0 ? (Math.floor(performance.now() / 90) % 2 === 0) : true;
+        ctx.fillStyle = on ? `rgba(${this.color},${Math.min(a + .16, .48)})` : `rgba(${this.color},${a * .4})`;
+        ctx.fillRect(-s * .3, -h * .22, s * .26, h * .44);
+        ctx.fillRect(s * .05, -h * .22, s * .26, h * .44);
+      } else if (this.type === "bubble"){
+        const w = s * .92, h = s * .68;
+        const sq = Math.sin(this.wob) * .06;
+        ctx.scale(1 + sq, 1 - sq);
+        ctx.beginPath(); roundRect(-w / 2, -h / 2, w, h, s * .2); ctx.fill();
+        ctx.beginPath();                                 // 尾巴
+        ctx.moveTo(-s * .1, h / 2 - 1);
+        ctx.lineTo(s * .06, h / 2 + s * .2);
+        ctx.lineTo(s * .18, h / 2 - 1);
+        ctx.closePath(); ctx.fill();
+        ctx.fillStyle = `rgba(${this.color},${Math.min(a + .12, .5)})`;
+        ctx.beginPath(); ctx.arc(-s * .28, -h * .22, s * .05, 0, 7); ctx.fill();  // 眼睛
+        ctx.beginPath(); ctx.arc(s * .02, -h * .22, s * .05, 0, 7); ctx.fill();
+      } else if (this.type === "pixel"){
+        ctx.fillRect(-s / 2, -s / 2, s, s);
+        ctx.fillStyle = `rgba(${this.color},${a * .45})`;
+        ctx.fillRect(-s * .18, -s * .18, s * .36, s * .36);
+        ctx.fillRect(s * .12, s * .12, s * .22, s * .22);
+      } else {                                            // node
+        ctx.beginPath(); ctx.arc(-s * .3, -s * .14, s * .13, 0, 7); ctx.fill();
+        ctx.beginPath(); ctx.arc(s * .3, s * .14, s * .13, 0, 7); ctx.fill();
+        ctx.beginPath();
+        ctx.moveTo(-s * .3 + s * .1, -s * .1);
+        ctx.lineTo(s * .3 - s * .1, s * .1);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+  }
+  function roundRect(x, y, w, h, r){
+    if (ctx.roundRect){ ctx.roundRect(x, y, w, h, r); return; }
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath();
+  }
+
+  /* 实例 + 粒子 */
+  const floaters = [];
+  TYPES.forEach(t => { for (let i = 0; i < 3; i++) floaters.push(new Floater(t)); });
+  const bursts = [];                                     // 气泡爆裂粒子
+  const shards = [];                                      // 像素分裂碎片
+
+  /* 连击彩蛋 */
+  const knocks = [];
+  const onKnockout = f => {
+    knocks.push(performance.now());
+    while (knocks.length && performance.now() - knocks[0] > 10000) knocks.shift();
+    if (knocks.length >= 3){
+      knocks.length = 0;
+      document.body.classList.add("shake");
+      setTimeout(() => document.body.classList.remove("shake"), 360);
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2400);
+    }
+  };
+
+  /* 交互（document 级转发，canvas 底层不挡页面） */
+  let drag = null, hoverOne = null, suppressClick = false;
+  const findAt = (x, y) => { for (let i = floaters.length - 1; i >= 0; i--) if (floaters[i].hit(x, y)) return floaters[i]; return null; };
+  const setCursor = c => { document.body.style.cursor = c; };
+
+  document.addEventListener("pointerdown", e => {
+    if (e.button !== 0 && e.pointerType === "mouse") return;
+    const f = findAt(e.clientX, e.clientY);
+    if (!f) return;
+    drag = { f, x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, t0: performance.now(),
+             lvx: 0, lvy: 0, la: performance.now() };
+    f.state = "drag"; f.jitter = f.type === "pixel" ? 1 : 0;
+    setCursor("grabbing"); suppressClick = true;
+    e.preventDefault();
+  });
+  document.addEventListener("pointermove", e => {
+    if (drag){
+      const f = drag.f, now = performance.now();
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      const dtms = Math.max(now - drag.la, 1);
+      drag.lvx = dx / dtms * 16; drag.lvy = dy / dtms * 16;       // 每帧速度
+      drag.la = now;
+      f.x += dx; f.y += dy;
+      f.va = Math.max(-.22, Math.min(.22, f.va + dx * .0035));     // 拖转
+      drag.x = e.clientX; drag.y = e.clientY;
+    } else {
+      const f = findAt(e.clientX, e.clientY);
+      if (f !== hoverOne){ hoverOne && (hoverOne.hover = false); hoverOne = f; f && (f.hover = true); }
+      setCursor(f ? "grab" : "");
+    }
+  });
+  document.addEventListener("pointerup", e => {
+    if (!drag) return;
+    const f = drag.f, dt = performance.now() - drag.t0;
+    const moved = Math.hypot(e.clientX - drag.sx, e.clientY - drag.sy);
+    f.jitter = 0;
+    if (moved < 8 && dt < 350){                                    // 点击：物种专属
+      if (f.type === "film"){ f.flash = 1; f.launchAt = performance.now() + 420; }
+      else if (f.type === "bubble"){
+        for (let i = 0; i < 6; i++) bursts.push({ x: f.x, y: f.y, vx: rnd(-2.4, 2.4), vy: rnd(-2.4, 2.4),
+          r: rnd(2.5, 5.5), life: 1 });
+        f.state = "dead"; f.rebirth = rnd(6000, 11000); onKnockout(f);
+      }
+      else if (f.type === "pixel"){
+        for (let i = 0; i < 4; i++) shards.push({ x: f.x, y: f.y, vx: rnd(-2.8, 2.8), vy: rnd(-2.8, 2.8),
+          s: f.size * .4, life: 1 });
+        f.state = "dead"; f.rebirth = rnd(6000, 11000); onKnockout(f);
+      }
+      else f.launch(e.clientX, e.clientY, 11), onKnockout(f);
+    } else {                                                        // 甩出
+      f.vx = Math.max(-20, Math.min(20, drag.lvx));
+      f.vy = Math.max(-20, Math.min(20, drag.lvy));
+      f.state = Math.hypot(f.vx, f.vy) > .6 ? "flying" : "idle";
+    }
+    drag = null; setCursor(hoverOne ? "grab" : "");
+  });
+  document.addEventListener("click", e => {                        // 吞掉点击漂浮物时的穿透
+    if (suppressClick && findAt(e.clientX, e.clientY)){ e.preventDefault(); e.stopPropagation(); }
+    suppressClick = false;
+  }, true);
+  document.addEventListener("pointercancel", () => {
+    if (!drag) return;
+    drag.f.state = "idle"; drag.f.jitter = 0; drag = null; setCursor("");
+  });
+  document.addEventListener("touchmove", e => { if (drag) e.preventDefault(); }, { passive: false });
+
+  /* 主循环 */
+  let raf = 0, last = performance.now();
+  const loop = () => {
+    const now = performance.now(), dt = Math.min(now - last, 50); last = now;
+    ctx.clearRect(0, 0, W, H);
+    floaters.forEach(f => { f.update(dt); f.draw(); });
+    for (let i = bursts.length - 1; i >= 0; i--){
+      const p = bursts[i];
+      p.x += p.vx; p.y += p.vy; p.vx *= .985; p.vy *= .985; p.life -= dt / 900;
+      if (p.life <= 0){ bursts.splice(i, 1); continue; }
+      ctx.fillStyle = `rgba(${pal.bubble},${p.life * .5})`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * p.life, 0, 7); ctx.fill();
+    }
+    for (let i = shards.length - 1; i >= 0; i--){
+      const p = shards[i];
+      p.x += p.vx; p.y += p.vy; p.vx *= .98; p.vy *= .98; p.life -= dt / 1100;
+      if (p.life <= 0){ shards.splice(i, 1); continue; }
+      ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.life * 5);
+      ctx.fillStyle = `rgba(${pal.pixel},${p.life * .4})`;
+      ctx.fillRect(-p.s / 2, -p.s / 2, p.s, p.s);
+      ctx.restore();
+    }
+    raf = requestAnimationFrame(loop);
+  };
+  raf = requestAnimationFrame(loop);
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else { last = performance.now(); raf = requestAnimationFrame(loop); }
+  });
+})();
 </script>
-</body>
-</html>
+
+
+</body></html>
