@@ -218,7 +218,7 @@
     <a class="count-pill" href="#founders"><b id="numF">2</b> 位创始人</a>
     <a class="count-pill" href="#mentors"><b id="numM">6</b> 位导师</a>
     <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
-    <a class="count-pill demo-pill" href="demos/" style="font-size: 15px; font-weight: bold">Demo 作品 →</a>
+    <a class="count-pill demo-pill" href="demos/index.html" style="font-size: 15px; font-weight: bold">Demo 作品 →</a>
   </div>
 </header>
 
@@ -340,7 +340,7 @@ const mentors = LECTURERS.filter(l => l.group !== "founder");
 founders.forEach(l => {
   const a = document.createElement("a");
   a.className = "fcard rise";
-  a.href = l.dir;
+  a.href = l.dir + "index.html";
   a.style.setProperty("--c", l.color);
   a.innerHTML = `
     <div class="photo-box"><img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"></div>
@@ -356,7 +356,7 @@ founders.forEach(l => {
 mentors.forEach((l, i) => {
   const a = document.createElement("a");
   a.className = "card rise d" + ((i % 3) + 1);
-  a.href = l.dir;
+  a.href = l.dir + "index.html";
   a.style.setProperty("--c", l.color);
   a.innerHTML = `
     <div class="photo-box">
@@ -435,7 +435,7 @@ const dockItems = [];
 LECTURERS.forEach(l => {
   const a = document.createElement("a");
   a.className = "dock-item";
-  a.href = l.dir;
+  a.href = l.dir + "index.html";
   a.style.setProperty("--c", l.color);
   a.dataset.tip = `${l.name} · ${l.title.split("·").pop().trim()}`;
   a.innerHTML = `<img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"><span class="dot"></span>`;
