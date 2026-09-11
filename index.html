@@ -84,6 +84,9 @@
   }
   .demo-pill b{color:var(--tint)}
   .demo-pill:hover{animation:none;transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(0,113,227,.35)}
+  a.count-pill{text-decoration:none;color:var(--ink-dim);cursor:pointer}
+  main section{scroll-margin-top:76px}
+  html{scroll-behavior:smooth}
 
   /* ===== 分组标题 ===== */
   .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(36px,5vw,56px) 0 clamp(16px,2.5vw,24px)}
@@ -187,19 +190,19 @@
   <h1 class="rise d1">AIGC 内容团队</h1>
   <p class="sub rise d2">以 <b>AIGC 驱动内容工业化</b>的创始人与导师阵容，覆盖平台操盘、工作流开发、短视频实战教育、AI 短剧全流程训练、AI 宣传片创作等方向。</p>
   <div class="count-row rise d3">
-    <span class="count-pill"><b id="numF">1</b> 位创始人</span>
-    <span class="count-pill"><b id="numM">5</b> 位导师</span>
+    <a class="count-pill" href="#founders"><b id="numF">1</b> 位创始人</a>
+    <a class="count-pill" href="#mentors"><b id="numM">5</b> 位导师</a>
     <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
     <a class="count-pill demo-pill" href="demos/"><b>5</b> 部 Demo 作品 →</a>
   </div>
 </header>
 
 <main class="wrap">
-  <section>
+  <section id="founders">
     <div class="group-head rise"><span class="zh">创始人</span><span class="en">Founder</span></div>
     <div class="fgrid" id="fgrid"></div>
   </section>
-  <section>
+  <section id="mentors">
     <div class="group-head rise"><span class="zh">导师团队</span><span class="en">Mentors</span></div>
     <div class="grid" id="grid"></div>
   </section>
