@@ -51,8 +51,18 @@
   .theme-btn:hover{transform:scale(1.08);box-shadow:var(--shadow-2,var(--shadow-1))}
   .theme-btn:active{transform:scale(.94)}
 
+  /* ===== 顶部滚动进度线 ===== */
+  .scroll-progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:80;
+    background:linear-gradient(90deg,var(--tint),#7C5CFC);
+    border-radius:0 2px 2px 0;opacity:.85;pointer-events:none}
+
   /* ===== Hero ===== */
-  header{padding:clamp(44px,7vw,72px) 0 clamp(30px,4vw,44px)}
+  header{position:relative;padding:clamp(96px,12vw,132px) 0 clamp(30px,4vw,44px)}
+  header::before{content:"";position:absolute;left:50%;top:-40px;transform:translateX(-50%);
+    width:min(960px,130vw);height:400px;pointer-events:none;z-index:-1;
+    background:radial-gradient(closest-side,rgba(0,113,227,.09),transparent 72%)}
+  html[data-theme="dark"] header::before{
+    background:radial-gradient(closest-side,rgba(124,92,252,.13),transparent 72%)}
   .hero-tag{font-size:13px;font-weight:600;letter-spacing:.12em;color:var(--ink-dim);
     text-transform:uppercase;margin-bottom:14px}
   h1{font-size:clamp(38px,7vw,64px);font-weight:700;letter-spacing:-.02em;line-height:1.08}
@@ -60,12 +70,19 @@
   .sub b{color:var(--ink);font-weight:600}
   .count-row{margin-top:26px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .count-pill{display:inline-flex;align-items:baseline;gap:7px;padding:8px 18px;border-radius:999px;
-    background:var(--card);box-shadow:var(--shadow-1);font-size:13px;color:var(--ink-dim)}
+    background:var(--card);box-shadow:var(--shadow-1);font-size:13px;color:var(--ink-dim);
+    transition:transform .3s ease,box-shadow .3s ease}
   .count-pill b{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .count-pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-2)}
   .demo-pill{text-decoration:none;color:var(--tint);font-weight:600;cursor:pointer;
-    border:1px solid var(--line);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease}
+    border:1px solid var(--line);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;
+    animation:pulseGlow 2.8s ease-in-out infinite}
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 0 rgba(0,113,227,.28)}
+    55%{box-shadow:0 0 0 12px rgba(0,113,227,0)}
+  }
   .demo-pill b{color:var(--tint)}
-  .demo-pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(0,113,227,.35)}
+  .demo-pill:hover{animation:none;transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(0,113,227,.35)}
 
   /* ===== 分组标题 ===== */
   .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(36px,5vw,56px) 0 clamp(16px,2.5vw,24px)}
@@ -74,6 +91,7 @@
 
   /* ===== 创始人横卡 ===== */
   .fgrid{display:grid;gap:20px}
+  .tilting{transition:transform .06s linear !important}
   .fcard{position:relative;display:grid;grid-template-columns:240px 1fr;background:var(--card);
     border-radius:24px;box-shadow:var(--shadow-1);text-decoration:none;color:inherit;overflow:hidden;
     transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease}
@@ -161,6 +179,7 @@
 </head>
 <body>
 
+<div class="scroll-progress" id="scrollProgress"></div>
 <button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
 
 <header class="wrap">
@@ -324,6 +343,53 @@ mentors.forEach((l, i) => {
 });
 document.getElementById("numF").textContent = founders.length;
 document.getElementById("numM").textContent = mentors.length;
+
+/* ---- 数字滚动（count-up） ---- */
+function countUp(el, target, dur){
+  dur = dur || 900;
+  const t0 = performance.now();
+  const step = now => {
+    const p = Math.min((now - t0) / dur, 1);
+    const e = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(e * target);
+    if (p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+setTimeout(() => {
+  countUp(document.getElementById("numF"), founders.length, 700);
+  countUp(document.getElementById("numM"), mentors.length, 900);
+  const demoNum = document.querySelector(".demo-pill b");
+  if (demoNum) countUp(demoNum, 5, 1100);
+}, 400);
+
+/* ---- 卡片 3D 倾斜（鼠标跟随） ---- */
+const finePointer = matchMedia("(pointer:fine)").matches;
+if (finePointer){
+  const attachTilt = el => {
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - .5;
+      const y = (e.clientY - r.top) / r.height - .5;
+      el.classList.add("tilting");
+      el.style.transform = `perspective(900px) rotateX(${(-y * 4.5).toFixed(2)}deg) rotateY(${(x * 4.5).toFixed(2)}deg) translateY(-4px)`;
+    });
+    el.addEventListener("mouseleave", () => {
+      el.classList.remove("tilting");
+      el.style.transform = "";
+    });
+  };
+  document.querySelectorAll(".fcard, .card").forEach(attachTilt);
+}
+
+/* ---- 顶部滚动进度线 ---- */
+const progressBar = document.getElementById("scrollProgress");
+const syncProgress = () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  progressBar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
+};
+addEventListener("scroll", syncProgress, { passive: true });
+syncProgress();
 
 /* ---- Dock（macOS 风：hover 放大 + 邻居递减） ---- */
 const dock = document.getElementById("dock");
