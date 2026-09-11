@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Demos 作品展示 · AIGC 内容团队</title>
+<meta name="description" content="AIGC 内容团队 Demos 作品库：S 级与 A 级 demo 视频分级展示，点击即可播放。">
+<style>
+  :root{
+    --bg:#0A0A0C;
+    --bg-soft:#121215;
+    --card:#16161A;
+    --card-hi:#1C1C21;
+    --ink:#F5F5F7;
+    --ink-dim:#98989D;
+    --ink-faint:#636366;
+    --line:rgba(255,255,255,.07);
+    --line-hi:rgba(255,255,255,.14);
+    --s-gold:#E3B341;
+    --a-silver:#C9C9CE;
+    --b-bronze:#C9856B;
+    --shadow-1:0 2px 10px rgba(0,0,0,.4),0 12px 34px rgba(0,0,0,.44);
+    --shadow-2:0 6px 18px rgba(0,0,0,.5),0 28px 64px rgba(0,0,0,.56);
+    --nav-bg:rgba(10,10,12,.68);
+    --sans:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.7;
+    overflow-x:hidden}
+  ::selection{background:rgba(227,179,65,.25)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+
+  /* ===== 顶部栏 ===== */
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:60;
+    backdrop-filter:blur(20px) saturate(1.8);-webkit-backdrop-filter:blur(20px) saturate(1.8);
+    background:var(--nav-bg);border-bottom:1px solid var(--line)}
+  .topbar-inner{max-width:1080px;margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:12px}
+  .back-home{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;
+    color:var(--ink-dim);text-decoration:none;padding:7px 15px;border-radius:999px;
+    border:1px solid var(--line);transition:color .3s ease,border-color .3s ease,transform .3s ease}
+  .back-home:hover{color:var(--ink);border-color:var(--line-hi);transform:translateX(-2px)}
+  .topbar .spacer{flex:1}
+  .nav-title{font-size:14px;font-weight:700;letter-spacing:.16em;color:var(--ink-dim);
+    text-transform:uppercase}
+  .nav-title b{color:var(--s-gold);font-weight:700}
+
+  /* ===== Hero ===== */
+  header{padding:clamp(130px,17vw,176px) 0 clamp(30px,4vw,46px)}
+  .hero-tag{font-size:13px;font-weight:600;letter-spacing:.14em;color:var(--s-gold);
+    text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(44px,8vw,76px);font-weight:700;letter-spacing:-.025em;line-height:1.04}
+  h1 .thin{font-weight:400;color:var(--ink-dim)}
+  .sub{margin-top:20px;font-size:clamp(15px,2.2vw,18px);color:var(--ink-dim);max-width:640px;line-height:1.8}
+  .sub b{color:var(--ink);font-weight:600}
+  .count-row{margin-top:28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .count-pill{display:inline-flex;align-items:baseline;gap:8px;padding:9px 19px;border-radius:999px;
+    background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow-1);font-size:13px;color:var(--ink-dim)}
+  .count-pill b{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .count-pill.s b{color:var(--s-gold)}
+  .count-pill.a b{color:var(--a-silver)}
+
+  /* ===== 分级区 ===== */
+  .tier{padding-top:clamp(30px,4.5vw,48px)}
+  .tier-head{display:flex;align-items:baseline;gap:14px;margin-bottom:clamp(18px,2.6vw,26px)}
+  .tier-head .grade{font-size:clamp(38px,6vw,52px);font-weight:800;letter-spacing:-.02em;line-height:1;
+    font-variant-numeric:tabular-nums}
+  .tier-head .zh{font-size:clamp(19px,2.8vw,25px);font-weight:700;letter-spacing:-.01em}
+  .tier-head .en{font-size:11.5px;font-weight:600;color:var(--ink-faint);letter-spacing:.2em;
+    text-transform:uppercase;align-self:center}
+  .tier-head .rule{flex:1;height:1px;background:var(--line);align-self:center;min-width:20px}
+  .tier.s .grade{color:var(--s-gold)}
+  .tier.a .grade{color:var(--a-silver)}
+  .tier.b .grade{color:var(--b-bronze)}
+
+  /* ===== 卡片网格 ===== */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media (max-width:920px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+
+  .vcard{position:relative;display:flex;flex-direction:column;background:var(--card);
+    border:1px solid var(--line);border-radius:22px;overflow:hidden;cursor:pointer;
+    transition:transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s ease,border-color .45s ease}
+  .vcard:hover{transform:translateY(-6px);box-shadow:var(--shadow-2);border-color:var(--line-hi)}
+  .vcard:active{transform:translateY(-2px) scale(.995)}
+  .thumb{position:relative;aspect-ratio:16/10;background:#000;overflow:hidden}
+  .thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+    display:block;pointer-events:none}
+  .grade-badge{position:absolute;top:14px;left:14px;z-index:2;padding:5px 14px;border-radius:999px;
+    font-size:12px;font-weight:800;letter-spacing:.08em;backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px)}
+  .tier.s .grade-badge{background:rgba(227,179,65,.92);color:#1A1206}
+  .tier.a .grade-badge{background:rgba(200,200,206,.9);color:#16161A}
+  .tier.b .grade-badge{background:rgba(201,133,107,.92);color:#1A0F08}
+  .play-orb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;z-index:2;
+    background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.5) 100%);
+    opacity:0;transition:opacity .35s ease}
+  .vcard:hover .play-orb{opacity:1}
+  .play-orb .orb{width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.32);transition:transform .35s cubic-bezier(.22,1,.36,1)}
+  .vcard:hover .play-orb .orb{transform:scale(1.06)}
+  .play-orb .orb svg{width:22px;height:22px;fill:#fff;margin-left:3px}
+  .vcard .body{padding:18px 20px 20px;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .vcard .name{font-size:17px;font-weight:700;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .vcard .dur{font-size:12.5px;font-weight:500;color:var(--ink-faint);font-variant-numeric:tabular-nums;
+    flex-shrink:0}
+  .tier.s .vcard:hover{border-color:rgba(227,179,65,.42)}
+  .tier.a .vcard:hover{border-color:rgba(200,200,206,.34)}
+
+  /* ===== 播放模态 ===== */
+  .modal{position:fixed;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;
+    padding:clamp(16px,4vw,44px);background:rgba(6,6,8,.86);
+    backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);
+    opacity:0;visibility:hidden;transition:opacity .38s ease,visibility .38s ease}
+  .modal.open{opacity:1;visibility:visible}
+  .modal-inner{position:relative;width:min(1100px,100%);max-height:calc(100vh - 80px);
+    display:flex;flex-direction:column;gap:14px}
+  .modal-head{display:flex;align-items:center;gap:12px}
+  .modal-grade{padding:4px 13px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.08em;flex-shrink:0}
+  .modal-grade.s{background:var(--s-gold);color:#1A1206}
+  .modal-grade.a{background:var(--a-silver);color:#16161A}
+  .modal-grade.b{background:var(--b-bronze);color:#1A0F08}
+  .modal-title{font-size:clamp(16px,2.4vw,21px);font-weight:700;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .modal-close{margin-left:auto;flex-shrink:0;width:38px;height:38px;border-radius:50%;
+    border:1px solid var(--line-hi);background:rgba(255,255,255,.07);color:var(--ink);
+    font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .3s ease,transform .3s ease}
+  .modal-close:hover{background:rgba(255,255,255,.15);transform:rotate(90deg)}
+  .modal video{width:100%;max-height:calc(100vh - 180px);border-radius:18px;background:#000;
+    box-shadow:var(--shadow-2);outline:none}
+  .modal .hint{font-size:12px;color:var(--ink-faint);text-align:center;letter-spacing:.03em}
+
+  /* ===== 页脚 ===== */
+  footer{margin-top:clamp(60px,9vw,100px);padding:34px 0 44px;border-top:1px solid var(--line)}
+  footer .foot-inner{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+    font-size:12.5px;color:var(--ink-faint)}
+  footer a{color:var(--ink-dim);text-decoration:none;transition:color .3s ease}
+  footer a:hover{color:var(--ink)}
+
+  /* ===== 入场动画 ===== */
+  .rise{opacity:0;transform:translateY(26px);
+    transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+  .rise.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){
+    .rise{opacity:1;transform:none;transition:none}
+    .vcard,.play-orb .orb,.modal-close{transition:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <a class="back-home" href="../">‹ 返回首页</a>
+    <div class="spacer"></div>
+    <div class="nav-title"><b>DEMO</b> LIBRARY</div>
+  </div>
+</div>
+
+<header class="wrap">
+  <div class="hero-tag rise">AIGC Demo Reel</div>
+  <h1 class="rise">Demos <span class="thin">作品展示</span></h1>
+  <p class="sub rise">团队产出的 <b>S 级 / A 级</b> demo 作品库。<b>点击卡片</b>即可在线播放。</p>
+  <div class="count-row rise">
+    <div class="count-pill s"><b>2</b> 部 S 级作品</div>
+    <div class="count-pill a"><b>3</b> 部 A 级作品</div>
+  </div>
+</header>
+
+<main class="wrap" style="padding-bottom:20px">
+
+  <!-- ===== S 级 ===== -->
+  <section class="tier s" id="tier-s">
+    <div class="tier-head rise">
+      <span class="grade">S</span>
+      <span class="zh">S 级作品</span>
+      <span class="en">Premium</span>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+
+      <article class="vcard rise" data-url="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/S%E7%BA%A7LOLdemo.mp4"
+        data-title="S级LOLdemo" data-grade="S">
+        <div class="thumb">
+          <span class="grade-badge">S</span>
+          <video preload="metadata" muted playsinline
+            src="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/S%E7%BA%A7LOLdemo.mp4"></video>
+          <div class="play-orb"><div class="orb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="body"><span class="name">S级LOLdemo</span></div>
+      </article>
+
+      <article class="vcard rise" data-url="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E7%8B%BC%E7%8E%8B%E5%B0%91%E5%A5%B3demo.mp4"
+        data-title="狼王少女demo" data-grade="S">
+        <div class="thumb">
+          <span class="grade-badge">S</span>
+          <video preload="metadata" muted playsinline
+            src="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E7%8B%BC%E7%8E%8B%E5%B0%91%E5%A5%B3demo.mp4"></video>
+          <div class="play-orb"><div class="orb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="body"><span class="name">狼王少女demo</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== A 级 ===== -->
+  <section class="tier a" id="tier-a">
+    <div class="tier-head rise">
+      <span class="grade">A</span>
+      <span class="zh">A 级作品</span>
+      <span class="en">Advanced</span>
+      <span class="rule"></span>
+    </div>
+    <div class="grid">
+
+      <article class="vcard rise" data-url="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E4%B8%8D%E9%97%AE%E5%90%9B%E5%BF%83.mp4"
+        data-title="不问君心" data-grade="A">
+        <div class="thumb">
+          <span class="grade-badge">A</span>
+          <video preload="metadata" muted playsinline
+            src="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E4%B8%8D%E9%97%AE%E5%90%9B%E5%BF%83.mp4"></video>
+          <div class="play-orb"><div class="orb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="body"><span class="name">不问君心</span></div>
+      </article>
+
+      <article class="vcard rise" data-url="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E5%AD%A6%E9%9C%B8%E5%BC%83%E6%AF%8D.mp4"
+        data-title="学霸弃母" data-grade="A">
+        <div class="thumb">
+          <span class="grade-badge">A</span>
+          <video preload="metadata" muted playsinline
+            src="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E5%AD%A6%E9%9C%B8%E5%BC%83%E6%AF%8D.mp4"></video>
+          <div class="play-orb"><div class="orb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="body"><span class="name">学霸弃母</span></div>
+      </article>
+
+      <article class="vcard rise" data-url="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E9%87%91%E8%8B%B9%E6%9E%9C17.mp4"
+        data-title="金苹果17" data-grade="A">
+        <div class="thumb">
+          <span class="grade-badge">A</span>
+          <video preload="metadata" muted playsinline
+            src="https://zhongze-demos.oss-cn-hangzhou.aliyuncs.com/%E9%87%91%E8%8B%B9%E6%9E%9C17.mp4"></video>
+          <div class="play-orb"><div class="orb"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+        </div>
+        <div class="body"><span class="name">金苹果17</span></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== B 级：暂无作品，后续在此追加 tier.b 区块 ===== -->
+
+</main>
+
+<div class="modal" id="player-modal" role="dialog" aria-modal="true" aria-label="视频播放">
+  <div class="modal-inner">
+    <div class="modal-head">
+      <span class="modal-grade" id="modal-grade">S</span>
+      <span class="modal-title" id="modal-title"></span>
+      <button class="modal-close" id="modal-close" aria-label="关闭">✕</button>
+    </div>
+    <video id="modal-video" controls playsinline></video>
+    <div class="hint">按 ESC 或点击空白处关闭</div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>© AIGC 内容团队 · Demo 作品库</span>
+    <a href="../">‹ 返回团队介绍</a>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var modal    = document.getElementById('player-modal');
+  var mv       = document.getElementById('modal-video');
+  var mTitle   = document.getElementById('modal-title');
+  var mGrade   = document.getElementById('modal-grade');
+  var mClose   = document.getElementById('modal-close');
+  var cards    = document.querySelectorAll('.vcard');
+
+  function openPlayer(url, title, grade){
+    mv.src = url;
+    mTitle.textContent = title;
+    mGrade.textContent = grade;
+    mGrade.className = 'modal-grade ' + grade.toLowerCase();
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    var p = mv.play();
+    if (p && typeof p.catch === 'function') { p.catch(function(){}); }
+  }
+  function closePlayer(){
+    mv.pause();
+    mv.removeAttribute('src');
+    mv.load();
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  for (var i = 0; i < cards.length; i++){
+    (function(card){
+      card.addEventListener('click', function(){
+        openPlayer(card.getAttribute('data-url'),
+                   card.getAttribute('data-title'),
+                   card.getAttribute('data-grade'));
+      });
+      card.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          card.click();
+        }
+      });
+    })(cards[i]);
+  }
+
+  mClose.addEventListener('click', closePlayer);
+  modal.addEventListener('click', function(e){
+    if (e.target === modal){ closePlayer(); }
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('open')){ closePlayer(); }
+  });
+
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
+    });
+  }, {threshold:.12});
+  document.querySelectorAll('.rise').forEach(function(el){ io.observe(el); });
+})();
+</script>
+</body>
+</html>
