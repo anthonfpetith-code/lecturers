@@ -55,17 +55,10 @@
     transition:transform .3s ease,box-shadow .3s ease}
   .theme-btn:hover{transform:scale(1.08);box-shadow:var(--shadow-1)}
   .theme-btn:active{transform:scale(.94)}
-  .nav-demos{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:600;
-    color:var(--tint);text-decoration:none;padding:8px 16px;border-radius:999px;
-    border:1px solid transparent;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
-  .nav-demos:hover{border-color:var(--line);background:var(--card);box-shadow:var(--shadow-1)}
-  .nav-demos span{transition:transform .3s ease}
-  .nav-demos:hover span{transform:translateX(3px)}
   @media (max-width:560px){
     .topbar-inner{padding:12px 16px;gap:8px}
     .brand i{display:none}
     .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-    .nav-demos{padding:8px 12px;flex-shrink:0;white-space:nowrap}
     .theme-btn{flex-shrink:0}
   }
 
@@ -183,7 +176,6 @@
   <div class="topbar-inner">
     <div class="brand">AIGC 内容团队<i>Faculty & Founders</i></div>
     <div class="spacer"></div>
-    <a class="nav-demos" href="demos/">Demos <span>→</span></a>
     <button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
   </div>
 </div>
