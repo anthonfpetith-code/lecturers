@@ -74,15 +74,17 @@
     transition:transform .3s ease,box-shadow .3s ease}
   .count-pill b{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
   .count-pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-2)}
-  .demo-pill{text-decoration:none;color:var(--tint);font-weight:600;cursor:pointer;
+  .demo-pill{text-decoration:none;color:#0053C2;font-weight:700;cursor:pointer;
     border:1px solid var(--line);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease;
+    --glow:rgba(0,83,194,.32);
     animation:pulseGlow 2.8s ease-in-out infinite}
+  html[data-theme="dark"] .demo-pill{color:#6FB4FF;--glow:rgba(111,180,255,.34)}
   @keyframes pulseGlow{
-    0%,100%{box-shadow:0 0 0 0 rgba(0,113,227,.28)}
-    55%{box-shadow:0 0 0 12px rgba(0,113,227,0)}
+    0%,100%{box-shadow:0 0 0 0 var(--glow)}
+    55%{box-shadow:0 0 0 12px transparent}
   }
-  .demo-pill b{color:var(--tint)}
-  .demo-pill:hover{animation:none;transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(0,113,227,.35)}
+  .demo-pill b{color:inherit}
+  .demo-pill:hover{animation:none;transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(10,132,255,.45)}
   a.count-pill{text-decoration:none;color:var(--ink-dim);cursor:pointer}
   main section{scroll-margin-top:76px}
   html{scroll-behavior:smooth}
@@ -144,20 +146,26 @@
 
   footer{padding:34px 0 140px;text-align:center;font-size:12.5px;color:var(--ink-faint);letter-spacing:.06em}
 
-  /* ===== Dock ===== */
+  /* ===== Dock（4 人窗口 · 悬停滚轮横滑） ===== */
   .dock{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:70;
-    display:flex;align-items:flex-end;gap:9px;padding:9px 13px;border-radius:24px;
+    display:flex;flex-direction:column;align-items:center}
+  .dock-tip{margin-bottom:9px;padding:5px 13px;border-radius:10px;background:var(--card);
+    box-shadow:var(--shadow-2);font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;
+    opacity:0;transform:translateY(4px);pointer-events:none;
+    transition:opacity .22s ease,transform .22s ease}
+  .dock-tip.show{opacity:1;transform:translateY(0)}
+  .dock-scroll{display:flex;gap:9px;padding:9px 13px;border-radius:24px;max-width:246px;
     background:var(--dock-bg);backdrop-filter:blur(24px) saturate(1.8);-webkit-backdrop-filter:blur(24px) saturate(1.8);
-    border:1px solid var(--line);box-shadow:var(--shadow-2)}
-  .dock-item{position:relative;display:flex;flex-direction:column;align-items:center;
+    border:1px solid var(--line);box-shadow:var(--shadow-2);
+    overflow-x:auto;scrollbar-width:none;scroll-behavior:smooth;overscroll-behavior-x:contain;
+    --ml:0;--mr:1;
+    mask-image:linear-gradient(90deg,rgba(0,0,0,var(--ml)) 0,#000 16px,#000 calc(100% - 16px),rgba(0,0,0,var(--mr)) 100%);
+    -webkit-mask-image:linear-gradient(90deg,rgba(0,0,0,var(--ml)) 0,#000 16px,#000 calc(100% - 16px),rgba(0,0,0,var(--mr)) 100%)}
+  .dock-scroll::-webkit-scrollbar{display:none}
+  .dock-item{display:flex;flex-direction:column;align-items:center;flex:0 0 auto;
     text-decoration:none;transition:transform .28s cubic-bezier(.22,1,.36,1)}
   .dock-item img{width:44px;height:44px;border-radius:13px;object-fit:cover;object-position:top center;
     box-shadow:0 2px 8px rgba(0,0,0,.18);transition:box-shadow .3s ease}
-  .dock-item .tip{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(4px);
-    padding:5px 13px;border-radius:10px;background:var(--card);box-shadow:var(--shadow-2);
-    font-size:12.5px;font-weight:600;color:var(--ink);white-space:nowrap;opacity:0;pointer-events:none;
-    transition:opacity .22s ease,transform .22s ease}
-  .dock-item:hover .tip{opacity:1;transform:translateX(-50%) translateY(0)}
   .dock-item .dot{width:4px;height:4px;border-radius:50%;background:var(--ink-faint);margin-top:5px;
     transition:background .3s ease}
   .dock-item:hover .dot{background:var(--c)}
@@ -189,7 +197,7 @@
     .fcard{grid-template-columns:1fr}
     .fcard .photo-box{min-height:0;aspect-ratio:4/3}
     .fcard .photo-box img{position:absolute}
-    .dock{gap:6px;padding:7px 9px;border-radius:20px}
+    .dock-scroll{gap:6px;padding:7px 9px;border-radius:20px;max-width:198px}
     .dock-item img{width:36px;height:36px;border-radius:11px}
   }
 </style>
@@ -301,7 +309,9 @@
   <footer class="rise">AIGC 内容团队 · 团队介绍</footer>
 </main>
 
-<nav class="dock" id="dock" aria-label="成员快速导航"><a class="dock-item" href="wangyage/" style="--c: #7C5CFC;"><span class="tip">王雅各 · 首席执行官</span><img src="wangyage/photo.jpg" alt="王雅各" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="wangliangzheng/" style="--c: #C77E42;"><span class="tip">王梁正 · 联合创始人</span><img src="wangliangzheng/photo.jpg" alt="王梁正" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenqichang/" style="--c: #C9971C;"><span class="tip">陈琪昌 · AIGC 视频训练师</span><img src="chenqichang/photo.jpg" alt="陈琪昌" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="geweibin/" style="--c: #D1567F;"><span class="tip">葛蔚斌 · AIGC 视频创作专家</span><img src="geweibin/photo.jpg" alt="葛蔚斌" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenhaonan/" style="--c: #3E8E6D;"><span class="tip">陈昊男 · 实战派短视频导师</span><img src="chenhaonan/photo.jpg" alt="陈昊男" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="zhouyukai/" style="--c: #5B6B7A;"><span class="tip">周于凯 · AIGC 视频创作专家</span><img src="zhouyukai/photo.jpg" alt="周于凯" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="chenjialong/" style="--c: #C25E6E;"><span class="tip">陈家龙 · AIGC 视频导师</span><img src="chenjialong/photo.jpg" alt="陈家龙" loading="lazy"><span class="dot"></span></a><a class="dock-item" href="wangyibo/" style="--c: #3A7CA5;"><span class="tip">王漪博 · AIGC 影视训练讲师</span><img src="wangyibo/photo.jpg" alt="王漪博" loading="lazy"><span class="dot"></span></a></nav>
+<nav class="dock" id="dock" aria-label="成员快速导航">
+  <div class="dock-tip" id="dockTip"></div>
+  <div class="dock-scroll" id="dockScroll"></div></nav>
 
 <script>
 /* =====================================================================
@@ -491,16 +501,19 @@ const syncProgress = () => {
 addEventListener("scroll", syncProgress, { passive: true });
 syncProgress();
 
-/* ---- Dock（macOS 风：hover 放大 + 邻居递减） ---- */
+/* ---- Dock（4 人窗口 · 滚轮横滑 · 共享 tip） ---- */
 const dock = document.getElementById("dock");
+const dockScroll = document.getElementById("dockScroll");
+const dockTip = document.getElementById("dockTip");
 const dockItems = [];
 LECTURERS.forEach(l => {
   const a = document.createElement("a");
   a.className = "dock-item";
   a.href = l.dir;
   a.style.setProperty("--c", l.color);
-  a.innerHTML = `<span class="tip">${l.name} · ${l.title.split("·").pop().trim()}</span><img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"><span class="dot"></span>`;
-  dock.appendChild(a);
+  a.dataset.tip = `${l.name} · ${l.title.split("·").pop().trim()}`;
+  a.innerHTML = `<img src="${l.dir}photo.jpg" alt="${l.name}" loading="lazy"><span class="dot"></span>`;
+  dockScroll.appendChild(a);
   dockItems.push(a);
 });
 dockItems.forEach((item, idx) => {
@@ -510,9 +523,27 @@ dockItems.forEach((item, idx) => {
       const scale = dist === 0 ? 1.5 : dist === 1 ? 1.22 : dist === 2 ? 1.08 : 1;
       other.style.transform = `scale(${scale}) translateY(${dist === 0 ? -8 : dist === 1 ? -4 : 0}px)`;
     });
+    dockTip.textContent = item.dataset.tip;
+    dockTip.classList.add("show");
   });
 });
-dock.addEventListener("mouseleave", () => dockItems.forEach(i => i.style.transform = ""));
+dock.addEventListener("mouseleave", () => {
+  dockItems.forEach(i => i.style.transform = "");
+  dockTip.classList.remove("show");
+});
+dock.addEventListener("wheel", e => {
+  const d = e.deltaY || e.deltaX;
+  if (!d) return;
+  dockScroll.scrollLeft += d;
+  e.preventDefault();
+}, { passive: false });
+const updFade = () => {
+  dockScroll.style.setProperty("--ml", dockScroll.scrollLeft > 4 ? 1 : 0);
+  dockScroll.style.setProperty("--mr", dockScroll.scrollLeft < dockScroll.scrollWidth - dockScroll.clientWidth - 4 ? 1 : 0);
+};
+dockScroll.addEventListener("scroll", updFade, { passive: true });
+addEventListener("resize", updFade);
+updFade();
 
 /* ---- 入场动画 ---- */
 const io = new IntersectionObserver(es => es.forEach(e => {
