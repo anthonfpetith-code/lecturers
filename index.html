@@ -55,6 +55,19 @@
     transition:transform .3s ease,box-shadow .3s ease}
   .theme-btn:hover{transform:scale(1.08);box-shadow:var(--shadow-1)}
   .theme-btn:active{transform:scale(.94)}
+  .nav-demos{display:inline-flex;align-items:center;gap:5px;font-size:13.5px;font-weight:600;
+    color:var(--tint);text-decoration:none;padding:8px 16px;border-radius:999px;
+    border:1px solid transparent;transition:background .3s ease,border-color .3s ease,box-shadow .3s ease}
+  .nav-demos:hover{border-color:var(--line);background:var(--card);box-shadow:var(--shadow-1)}
+  .nav-demos span{transition:transform .3s ease}
+  .nav-demos:hover span{transform:translateX(3px)}
+  @media (max-width:560px){
+    .topbar-inner{padding:12px 16px;gap:8px}
+    .brand i{display:none}
+    .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .nav-demos{padding:8px 12px;flex-shrink:0;white-space:nowrap}
+    .theme-btn{flex-shrink:0}
+  }
 
   /* ===== Hero ===== */
   header{padding:clamp(120px,16vw,168px) 0 clamp(30px,4vw,44px)}
@@ -67,6 +80,10 @@
   .count-pill{display:inline-flex;align-items:baseline;gap:7px;padding:8px 18px;border-radius:999px;
     background:var(--card);box-shadow:var(--shadow-1);font-size:13px;color:var(--ink-dim)}
   .count-pill b{font-size:19px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .demo-pill{text-decoration:none;color:var(--tint);font-weight:600;cursor:pointer;
+    border:1px solid var(--line);transition:border-color .3s ease,transform .3s ease,box-shadow .3s ease}
+  .demo-pill b{color:var(--tint)}
+  .demo-pill:hover{transform:translateY(-2px);box-shadow:var(--shadow-1);border-color:rgba(0,113,227,.35)}
 
   /* ===== 分组标题 ===== */
   .group-head{display:flex;align-items:baseline;gap:14px;margin:clamp(36px,5vw,56px) 0 clamp(16px,2.5vw,24px)}
@@ -166,6 +183,7 @@
   <div class="topbar-inner">
     <div class="brand">AIGC 内容团队<i>Faculty & Founders</i></div>
     <div class="spacer"></div>
+    <a class="nav-demos" href="demos/">Demos <span>→</span></a>
     <button class="theme-btn" id="themeBtn" aria-label="切换深浅色" title="切换深浅色">◐</button>
   </div>
 </div>
@@ -178,6 +196,7 @@
     <span class="count-pill"><b id="numF">1</b> 位创始人</span>
     <span class="count-pill"><b id="numM">5</b> 位导师</span>
     <span class="count-pill" style="color:var(--ink-faint)">持续扩充</span>
+    <a class="count-pill demo-pill" href="demos/"><b>5</b> 部 Demo 作品 →</a>
   </div>
 </header>
 
@@ -276,6 +295,7 @@ const LECTURERS = [
 ];
 
 /* ---- 主题切换 ---- */
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
 const themeBtn = document.getElementById("themeBtn");
 const savedTheme = localStorage.getItem("theme") || "light";
 document.documentElement.dataset.theme = savedTheme;
