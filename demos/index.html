@@ -433,8 +433,10 @@
   setTimeout(function(){
     var sNum = document.querySelector('.count-pill.s b');
     var aNum = document.querySelector('.count-pill.a b');
-    if (sNum) countUp(sNum, 2, 800);
-    if (aNum) countUp(aNum, 3, 1000);
+    var sCnt = document.querySelectorAll('#tier-s .vcard').length;
+    var aCnt = document.querySelectorAll('#tier-a .vcard').length;
+    if (sNum) countUp(sNum, sCnt, 800);
+    if (aNum) countUp(aNum, aCnt, 1000);
   }, 400);
 
   /* ---- 视频卡片 3D 倾斜（rAF 阻尼插值，触屏自动关闭） ---- */
